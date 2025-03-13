@@ -14,6 +14,8 @@ services:
         sync: false
       - key: REACT_APP_SUPABASE_KEY
         sync: false
+      - key: OPENAI_API_KEY
+        sync: false
 
   # Frontend service
   - type: web
