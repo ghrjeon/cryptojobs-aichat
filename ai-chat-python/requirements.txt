@@ -7,4 +7,5 @@ python-dotenv==1.0.1
 supabase==1.2.0
 matplotlib==3.5.1
 gunicorn==21.2.0
-pyyaml==6.0.1 
+pyyaml==6.0.1
+beautifulsoup4==4.12.2 
