@@ -26,3 +26,7 @@ services:
         value: 18.0.0
       - key: REACT_APP_BACKEND_URL
         sync: false 
+      - key: REACT_APP_SUPABASE_URL
+        sync: false
+      - key: REACT_APP_SUPABASE_KEY
+        sync: false
