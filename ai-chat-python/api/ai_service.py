@@ -21,7 +21,6 @@ app = Flask(__name__)
 CORS(app) 
 
 # Load job data
-# print(job_data)
 
 supabase_response = (
     supabase.table("jobs_clean")
@@ -39,16 +38,13 @@ job_df = pai.DataFrame(df_data)
 print(job_df.columns)
 print(job_df.dtypes)
 
-# job_df = pai.DataFrame(job_df)
-
 pai.api_key.set(os.getenv("PANDASAI_API_KEY"))
 
-# Add this new route to serve chart images
+# Route to serve chart images
 @app.route('/exports/charts/<filename>')
 def serve_chart(filename):
     try:
         directory = os.path.join(os.getcwd(), 'exports', 'charts')
-        # Log the full path for debugging
         full_path = os.path.join(directory, filename)
         print(f"Attempting to serve chart from: {full_path}")
         
@@ -61,6 +57,7 @@ def serve_chart(filename):
         print(f"Error serving chart: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+# Route to handle chat requests
 @app.route('/api/chat', methods=['POST'])
 def chat():
     try:
@@ -86,7 +83,7 @@ def chat():
                     'error_message': response_json.get('value')
                 }
             }
-            print("Error details:", result)  # Debug log
+            print("Error details:", result)  
             return jsonify({'result': result})
 
         # Extract the values from response
