@@ -8,6 +8,7 @@ https://rosalyn-cryptojobs-ai.vercel.app/
 - Demonstrate my skills in: <br>
    - Advanced Web scraping for comprehensive data collection
    - Leveraging ML and AI for data processing
+   - Utilizing cloud warehousing for seamless data API accessibility
    - Developing a custom AI chatbot specialized in data analysis
    - Building a full-stack system with a Python backend API and a React/JavaScript frontend
    - Creating interactive dashboards for insightful data visualization
@@ -15,7 +16,8 @@ https://rosalyn-cryptojobs-ai.vercel.app/
    - Aggregating crypto job listings into a structured, searchable database
    - Analyzing job market trends to uncover insights into the crypto job landscape
 
-🚀 Hope you find this project valuable!
+🚀 This project integrates ML, NLP, LLM, and full-stack development to enhance analytics and job discovery.<br>
+🚀 Hope you find this project valuable!<br>
 
 ## Content
 📌 Chat - Interact with AI to explore crypto jobs database. <br>
