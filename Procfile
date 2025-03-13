@@ -1,1 +1,0 @@
-web: cd ai-chat-python && gunicorn ai_service:app 
