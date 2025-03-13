@@ -129,11 +129,12 @@ const Home = () => {
 ### Methodology:
 
 1. Data Collection:
-   - A structured schema is defined for data collection
+   - Schema is defined for data collection
    - Data is scraped from crypto job boards (Web3.Career, Cryptojobs.com)
 
 2. Data Processing:
-   - Data is processed using Python, and embeddings are generated via OpenAI
+   - Data is processed using Python
+   - Embeddings are generated via OpenAI
    - Duplicate entries are detected and removed using Cosine Similarity (Scikit-learn)
    - Job functions and locations are inferred via OpenAI
    - Processed data is stored in Supabase
