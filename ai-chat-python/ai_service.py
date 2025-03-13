@@ -37,8 +37,8 @@ df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amoun
 
 job_df = SmartDataframe(df_data)
 
-print(job_df.columns)
-print(job_df.dtypes)
+# print(job_df.columns)
+# print(job_df.dtypes)
 
 # job_df = pai.DataFrame(job_df)
 
