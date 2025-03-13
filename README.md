@@ -8,7 +8,7 @@ https://rosalyn-cryptojobs-ai.vercel.app/
 - Demonstrate my skills in: <br>
    - Advanced Web scraping for comprehensive data collection
    - Leveraging ML and AI for data processing
-   - Utilizing cloud warehousing for seamless data API accessibility
+   - Utilizing cloud warehousing for seamless data accessibility
    - Developing a custom AI chatbot specialized in data analysis
    - Building a full-stack system with a Python backend API and a React/JavaScript frontend
    - Creating interactive dashboards for insightful data visualization
