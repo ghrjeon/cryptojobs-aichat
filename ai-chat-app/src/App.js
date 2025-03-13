@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import ErrorBoundary from './components/ErrorBoundary';
 import Analysis from './pages/Analysis';
 import JobsTable from './components/JobsTable';
-
+import Methodology from './pages/Methodology';
 const AppContainer = styled.div`
   display: flex;
   background-color: #f5f5f5;
@@ -31,6 +31,7 @@ function App() {
           <MainContent sidebarWidth="220px">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/methodology" element={<Methodology />} />
               <Route path="/chat" element={<ChatInterface />} />
               <Route path="/data" element={<JobsTable />} />
               <Route path="/analysis" element={<Analysis />} />

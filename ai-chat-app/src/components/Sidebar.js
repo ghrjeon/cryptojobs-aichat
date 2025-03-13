@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Home, MessageSquare, Table, ChartPie } from "lucide-react";
+import { Home, MessageSquare, Table, ChartPie, Book } from "lucide-react";
 
 
 const SidebarContainer = styled.div`
@@ -85,6 +85,12 @@ const Sidebar = () => {
           <StyledNavLink to="/" isOpen={isOpen}>
             < Home />
             <IconText isOpen={isOpen}>Home</IconText>
+          </StyledNavLink>
+        </NavItem>
+        <NavItem>
+          <StyledNavLink to="/methodology" isOpen={isOpen}>
+            <Book />
+            <IconText isOpen={isOpen}>Methodology</IconText>
           </StyledNavLink>
         </NavItem>
         <NavItem>
