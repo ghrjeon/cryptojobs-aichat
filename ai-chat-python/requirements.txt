@@ -9,3 +9,4 @@ matplotlib==3.5.1
 gunicorn==21.2.0
 pyyaml==6.0.1
 beautifulsoup4==4.12.2 
+supafunc==0.2.2
