@@ -9,7 +9,6 @@ import pandasai as pai
 import json 
 from flask_cors import CORS
 from supabase import create_client, Client
-from pandasai import SmartDataframe
 
 dotenv.load_dotenv()
 
@@ -35,10 +34,10 @@ df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amoun
                    'skills', 'source', 'job_url', 'posted_date', 'my_id'
                    ]]
 
-job_df = SmartDataframe(df_data)
+job_df = pai.DataFrame(df_data)
 
-# print(job_df.columns)
-# print(job_df.dtypes)
+print(job_df.columns)
+print(job_df.dtypes)
 
 # job_df = pai.DataFrame(job_df)
 
