@@ -3,7 +3,7 @@ flask-cors==4.0.0
 pandas==1.5.3
 pandasai==2.0.3
 python-dotenv==1.0.1
-supabase==2.3.4
+supabase==1.2.0
 matplotlib==3.8.3
 gunicorn==21.2.0
 pyyaml==6.0.1
