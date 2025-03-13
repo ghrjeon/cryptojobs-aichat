@@ -77,7 +77,7 @@ const Home = () => {
       <Description>
         <h3>Stacks Used:</h3>
         <List>
-          <li>Data Collection: Selenium</li>
+          <li>Data Collection: Selenium, BeautifulSoup</li>
           <li>Data Warehousing: Supabase</li>
           <li>Data Processing: Python, OpenAI, Scikit-learn</li>
           <li>LLM Chat Integration: Pandas AI</li>
