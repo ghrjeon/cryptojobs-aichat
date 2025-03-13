@@ -11,6 +11,18 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "https://ai-chat-python-backend.onrender.com/api/$1"
+    },
+    {
+      "src": "/health",
+      "dest": "https://ai-chat-python-backend.onrender.com/health"
+    },
+    {
+      "src": "/exports/(.*)",
+      "dest": "https://ai-chat-python-backend.onrender.com/exports/$1"
+    },
+    {
       "src": "/static/(.*)",
       "dest": "/static/$1"
     },
