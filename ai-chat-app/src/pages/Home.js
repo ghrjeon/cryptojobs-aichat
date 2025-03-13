@@ -85,39 +85,11 @@ const Home = () => {
           <li>Backend: Python, Flask</li>
           <li>Frontend: React, JavaScript</li>
         </List>
-
-        <ReactMarkdown>
-          {`
-### Methodology:
-
-1. Data Collection:
-   - A structured schema is defined for data collection
-   - Data is scraped from crypto job boards (Web3.Career, Cryptojobs.com)
-
-2. Data Processing:
-   - Data is processed using Python, and embeddings are generated via OpenAI
-   - Duplicate entries are detected and removed using Cosine Similarity (Scikit-learn)
-   - Job functions and locations are inferred via OpenAI
-   - Processed data is stored in Supabase
-
-3. AI Chat Integration:
-   - Processed data is loaded into PandasAI for chat integration
-   - Flask backend handles message processing and responses
-   - React + JavaScript chat interface interacts with the backend API
-
-4. Data Visualization:
-   - Data insights are visualized using Plotly and D3.js
-
-5. Next Steps:
-   - Add more data sources (e.g., jobstash.xyz )
-   - Automate dag using Airflow
-          `}
-        </ReactMarkdown>
       </Description>
 
       <LinksContainer>
         <LinkCard 
-          href="https://github.com/ghrjeon/blockchain-twitter-pipeline" 
+          href="https://github.com/ghrjeon/cryptojobs-aichat" 
           target="_blank" 
           rel="noopener noreferrer"
         >
@@ -151,6 +123,36 @@ const Home = () => {
           <span>↗︎</span>
         </LinkCard>
       </LinksContainer>
+      <Description>
+        <ReactMarkdown>
+          {`
+### Methodology:
+
+1. Data Collection:
+   - A structured schema is defined for data collection
+   - Data is scraped from crypto job boards (Web3.Career, Cryptojobs.com)
+
+2. Data Processing:
+   - Data is processed using Python, and embeddings are generated via OpenAI
+   - Duplicate entries are detected and removed using Cosine Similarity (Scikit-learn)
+   - Job functions and locations are inferred via OpenAI
+   - Processed data is stored in Supabase
+
+3. AI Chat Integration:
+   - Processed data is loaded into PandasAI for chat integration
+   - Flask backend handles message processing and responses
+   - React + JavaScript chat interface interacts with the backend API
+
+4. Data Visualization:
+   - Data insights are visualized using Plotly and D3.js
+
+5. Next Steps:
+   - Add more data sources (e.g., jobstash.xyz )
+   - Automate dag using Airflow
+          `}
+        </ReactMarkdown>
+      </Description>
+
     </HomeContainer>
   );
 };
