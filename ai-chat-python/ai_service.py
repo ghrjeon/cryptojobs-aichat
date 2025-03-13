@@ -3,7 +3,6 @@ matplotlib.use('Agg')  # Use a non-GUI backend
 
 from flask import Flask, request, jsonify, send_from_directory
 import pandas as pd
-from pandasai import Agent
 import os
 import dotenv
 import pandasai as pai
@@ -69,7 +68,6 @@ def chat():
         if not query:
             return jsonify({'error': 'No query provided'}), 400
 
-        # Use the Agent to process the query
         response = job_df.chat(query)
         # print("Raw response:", response)  # Debug log
         
