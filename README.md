@@ -33,21 +33,22 @@ https://rosalyn-cryptojobs-ai.vercel.app/
 <b>Backend</b>: Python, Flask <br>
 <b>Frontend</b>: React, JavaScript <br>
 
-## Pipeline
-1. Data Retrieval
-   - Fetches data from Supabase (collected from crypto job boards).
-   - Web scraping is performed using Selenium and BeautifulSoup (scripts not included in this pipeline).
+## Pipeline and Methodology
+1. Data Collection
+   - Define a structured schema for data collection.
+   - Perform web scraping using Selenium and BeautifulSoup (scripts not included in this pipeline).
+   - Store scraped data in Supabase and create APIs for access. 
 3. Data Processing via ML/AI
-   - Cleans and processes data using Python.
-   - Generates embeddings via OpenAI and applies cosine similarity (Scikit-learn) to remove duplicates.
-   - Job functions and locations are inferred using OpenAI.
-   - The processed data is stored in Supabase, and API is created for access.
+   - Clean and preprocess fetched data using Python.
+   - Generate embeddings via OpenAI and apply cosine similarity (Scikit-learn) to remove duplicates.
+   - Infer job functions and locations using OpenAI.
+   - Store processed data in Supabase and create an API for access.
 4. AI Chat Integration
-   - Loads processed data into PandasAI for chat-based querying.
-   - Flask backend manages message processing and responses.
+   - Load processed data into PandasAI for chat-based querying.
+   - Flask backend handles message processing and responses.
    - React + JavaScript frontend interacts with the backend API.
 5. Data Visualization
-   - Creates interactive dashboards and insights using Plotly and D3.js.
+   - Build interactive dashboards and insights using Plotly and D3.js.
 
 ## Next steps
 - Add more data sources (e.g., jobstash.xyz)
