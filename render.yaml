@@ -4,7 +4,7 @@ services:
     name: ai-chat-python-backend
     env: python
     buildCommand: pip install -r ai-chat-python/requirements.txt
-    startCommand: cd ai-chat-python && gunicorn ai_service:app
+    startCommand: cd ai-chat-python/api && gunicorn ai_service:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
