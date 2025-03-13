@@ -1,0 +1,28 @@
+services:
+  # Backend service
+  - type: web
+    name: ai-chat-python-backend
+    env: python
+    buildCommand: pip install -r ai-chat-python/requirements.txt
+    startCommand: cd ai-chat-python && gunicorn ai_service:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: PANDASAI_API_KEY
+        sync: false
+      - key: REACT_APP_SUPABASE_URL
+        sync: false
+      - key: REACT_APP_SUPABASE_KEY
+        sync: false
+
+  # Frontend service
+  - type: web
+    name: ai-chat-frontend
+    env: static
+    buildCommand: cd ai-chat-app && npm install && npm run build
+    staticPublishPath: ai-chat-app/build
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: REACT_APP_BACKEND_URL
+        sync: false 
