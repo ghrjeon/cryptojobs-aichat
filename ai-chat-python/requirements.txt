@@ -11,3 +11,4 @@ pyyaml==6.0.1
 beautifulsoup4==4.12.2 
 supafunc==0.2.2
 polars==0.19.19
+seaborn==0.12.2
