@@ -68,8 +68,8 @@ const Home = () => {
       <Description>
         <h3>Discover and analyze crypto job trends!</h3>
         <p>
-          📌 Chat - Interact with AI to explore the database.<br />
-          📌 Analysis - Gain insights into the crypto job market through interactive dashboards.<br />
+          📌 Chat - Interact with AI to explore crypto jobs database.<br />
+          📌 Analysis - Gain insights into crypto job market with interactive dashboards.<br />
           📌 Table - Browse job listings with advanced filters and search functionality.
         </p>
       </Description>
