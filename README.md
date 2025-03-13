@@ -2,6 +2,8 @@
 
 Hello! Welcome to Rosalyn's Crypto Jobs Analytics, an AI-powered platform designed to showcase my <b>data science</b> and <b>software engineering skills</b> while optimizing my job search process. 
 
+https://rosalyn-cryptojobs-ai.vercel.app/
+
 ## Project goals
 - Demonstrate my skills in: <br>
    - Advanced Web scraping for comprehensive data collection
