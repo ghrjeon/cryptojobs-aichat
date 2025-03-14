@@ -62,18 +62,20 @@ https://rosalyn-cryptojobs-ai.vercel.app/
       │   │   ├── components            # UI components for Analytics Dashboard
       │   │   ├── pages
       │   │   │   ├── Analysis.js       # Analytics Dashboard 
-      │   │   │   ├── ChatInterface.js  # Chat Interface 
-      │   │   │   └── Home.js           # Home Page 
+      │   │   │   ├── ChatInterface.js  # AI Chat Interface 
+      │   │   │   ├── Home.js           # Home Page  
+      │   │   │   └── Methodology.js    # Methodology and Pipeline description 
       │   │   ├── utils
       │   │   │   └── dataService.js    # Handles API requests to the Python backend
       │   │   └── index.js
       │   └── package.json              # Frontend dependencies 
       │
       └── ai-chat-python                # Python Backend
-          ├── ai_service.py             # Handles AI model queries (PandasAI)
+          ├── api                       
+          │   └── ai_service.py         # Handles AI model queries (PandasAI)
           ├── ingestion
           │   └── infer.py              # Data processing and inference using OpenAI & Scikit-learn
-          └── requirements.txt  
+          └── requirements.txt          # Backend dependencies 
 
 # Requirements 
 - Python 3.11+
