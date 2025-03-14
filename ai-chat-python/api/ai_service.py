@@ -7,7 +7,7 @@ import os
 import dotenv
 import pandasai as pai
 import json 
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from supabase import create_client, Client
 
 dotenv.load_dotenv()
@@ -18,7 +18,8 @@ supabaseKey = os.getenv("REACT_APP_SUPABASE_KEY")
 supabase: Client = create_client(supabaseUrl, supabaseKey)
 
 app = Flask(__name__)
-CORS(app) 
+# Configure CORS to allow requests from your frontend
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}})
 
 # Load job data
 
@@ -42,6 +43,7 @@ pai.api_key.set(os.getenv("PANDASAI_API_KEY"))
 
 # Route to serve chart images
 @app.route('/exports/charts/<filename>')
+@cross_origin()
 def serve_chart(filename):
     try:
         directory = os.path.join(os.getcwd(), 'exports', 'charts')
@@ -58,8 +60,13 @@ def serve_chart(filename):
         return jsonify({'error': str(e)}), 500
 
 # Route to handle chat requests
-@app.route('/api/chat', methods=['POST'])
+@app.route('/api/chat', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def chat():
+    # Handle preflight requests
+    if request.method == 'OPTIONS':
+        return '', 204
+        
     try:
         query = request.json.get('query')
         if not query:
