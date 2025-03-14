@@ -126,8 +126,8 @@ function Analysis() {
   - Data sources: cryptojobs.com, web3.career
   - Date range: ${jobFunctionStats.minDate} to ${jobFunctionStats.maxDate}
   - Number of jobs collected: ${jobFunctionStats.totalJobs}
-  - Job functions are categorized based on job titles using a combination of keyword matching and NLP. 
-  - Locations are mapped to countries using NLP.
+  - Job functions are categorized based on job titles using a combination of keyword matching and LLM. 
+  - Locations are mapped to countries using LLM.
   - Skills are based on tags provided by the job poster. 
             `}
           </ReactMarkdown>

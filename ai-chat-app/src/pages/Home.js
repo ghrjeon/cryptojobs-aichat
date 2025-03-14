@@ -64,15 +64,17 @@ const Home = () => {
   return (
     <HomeContainer>
       <Title>Welcome to Rosalyn's Crypto Jobs Analytics!</Title>
-      
+      <br></br>
       <Description>
         <h3>Discover and analyze crypto job trends!</h3>
         <p>
+          📌 Methodology - Learn about the data collection and processing pipeline.<br />
           📌 Chat - Interact with AI to explore crypto jobs database.<br />
           📌 Analysis - Gain insights into crypto job market with interactive dashboards.<br />
           📌 Table - Browse job listings with advanced filters and search functionality.
         </p>
       </Description>
+      <br></br>
 
       <Description>
         <h3>Stacks Used:</h3>
@@ -87,6 +89,7 @@ const Home = () => {
         </List>
       </Description>
 
+      <br></br>
       <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 
@@ -123,37 +126,6 @@ const Home = () => {
           <span>↗︎</span>
         </LinkCard>
       </LinksContainer>
-      <Description>
-        <ReactMarkdown>
-          {`
-### Methodology:
-
-1. Data Collection:
-   - Schema is defined for data collection
-   - Data is scraped from crypto job boards (Web3.Career, Cryptojobs.com)
-
-2. Data Processing:
-   - Data is processed using Python
-   - Embeddings are generated via OpenAI
-   - Duplicate entries are detected and removed using Cosine Similarity (Scikit-learn)
-   - Job functions and locations are inferred via OpenAI
-   - Processed data is stored in Supabase
-
-3. AI Chat Integration:
-   - Processed data is loaded into PandasAI for chat integration
-   - Flask backend handles message processing and responses
-   - React + JavaScript chat interface interacts with the backend API
-
-4. Data Visualization:
-   - Data insights are visualized using Plotly and D3.js
-
-5. Next Steps:
-   - Add more data sources (e.g., jobstash.xyz )
-   - Automate dag using Airflow
-          `}
-        </ReactMarkdown>
-      </Description>
-
     </HomeContainer>
   );
 };
