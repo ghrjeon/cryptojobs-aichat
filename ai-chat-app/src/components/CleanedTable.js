@@ -24,7 +24,7 @@ function CleanedTable() {
                 .gte('posted_date', '2025-03-01');
                 if (error) throw error;
 
-                console.log(jobsdata);
+                // console.log(jobsdata);
                 setData(jobsdata);
                 setLoading(false);
             } catch (error) {

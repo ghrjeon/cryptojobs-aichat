@@ -35,7 +35,7 @@ function DateChart() {
                     
                     // Format date to YYYY-MM-DD
                     const date = new Date(job.posted_date).toISOString().slice(0, 10);
-                    console.log(date)
+                    // console.log(date)
                     if (!jobsByDate[date]) {
                         jobsByDate[date] = {};
                     }
