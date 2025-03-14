@@ -19,8 +19,7 @@ supabase: Client = create_client(supabaseUrl, supabaseKey)
 
 app = Flask(__name__)
 # Configure CORS to allow requests from your frontend
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}})
-
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000", "https://rosalyn-cryptojobs-ai.vercel.app"]}})
 # Load job data
 
 supabase_response = (
