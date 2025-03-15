@@ -88,12 +88,6 @@ const Sidebar = () => {
           </StyledNavLink>
         </NavItem>
         <NavItem>
-          <StyledNavLink to="/methodology" isOpen={isOpen}>
-            <Book />
-            <IconText isOpen={isOpen}>Methodology</IconText>
-          </StyledNavLink>
-        </NavItem>
-        <NavItem>
           <StyledNavLink to="/chat" isOpen={isOpen}>
             <MessageSquare />
             <IconText isOpen={isOpen}>Chat</IconText>
@@ -109,6 +103,12 @@ const Sidebar = () => {
           <StyledNavLink to="/data" isOpen={isOpen}>
             <Table />
             <IconText isOpen={isOpen}>Table</IconText>
+          </StyledNavLink>
+        </NavItem>
+        <NavItem>
+          <StyledNavLink to="/methodology" isOpen={isOpen}>
+            <Book />
+            <IconText isOpen={isOpen}>Methodology</IconText>
           </StyledNavLink>
         </NavItem>
       </NavList>
