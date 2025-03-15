@@ -5,7 +5,7 @@ import DataTable from 'react-data-table-component';
 import ReactMarkdown from 'react-markdown';
 import '../App.css';
 import { customStyles, functionColors } from './customStyle';
-
+import { fetchJobs } from '../utils/fetchJobs';
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 
@@ -19,20 +19,10 @@ function FunctionChart() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: fetchedData, error } = await supabase
-                .from('jobs_clean')
-                .select('*')
-                .gte('posted_date', '2025-03-01');
-
-                if (error) throw error;
+                const fetchedData = await fetchJobs();
 
                 // Get jobs with salary info
-                const { data: salaryData, error: salaryError} = await supabase
-                    .from('jobs_clean')
-                    .select('*')
-                    .gt('salary_amount', 0);
-
-                if (salaryError) throw salaryError;
+                const salaryData = fetchedData.filter(job => job.salary_amount > 0);
 
                 // Calculate total jobs
                 const totalJobs = fetchedData.length;
@@ -212,6 +202,7 @@ function FunctionChart() {
         showlegend: false  // Hide legend since it's shown in pie chart
     };
 
+    const highestsalary = jobfunctionData.sort((a, b) => b.average_salary - a.average_salary)[0];
 
     return (
         <div style={{ padding: '20px' }}>
@@ -224,9 +215,9 @@ function FunctionChart() {
           {`
 - Job Function Distribution: 
     - ${getJobFunctionData('Engineering, Product, and Research').percentage}% of jobs are in Engineering, Product, and Research.
-    - ${getJobFunctionData('Business, Strategy, and Operations').percentage} are in Business, Strategy, and Operations.
-    - ${getJobFunctionData('Data and Analytics').percentage} are in Data and Analytics.
-    - ${getJobFunctionData('Design, Art, and Creative').percentage} are in Design, Art, and Creative.
+    - ${getJobFunctionData('Business, Strategy, and Operations').percentage}% are in Business, Strategy, and Operations.
+    - ${getJobFunctionData('Data and Analytics').percentage}% are in Data and Analytics.
+    - ${getJobFunctionData('Design, Art, and Creative').percentage}% are in Design, Art, and Creative.
                             `}
           </ReactMarkdown>
           </div>
@@ -237,7 +228,7 @@ function FunctionChart() {
             {`
 - Job Function Salary:
     - The average salary for crypto job postings exceeds $100,000.
-    - Engineering, Product, and Research has the highest average salary at ${formatCurrency(getJobFunctionData('Engineering, Product, and Research').average_salary)}.
+    - ${highestsalary.jobfunction} is the highest paying job function at ${formatCurrency(highestsalary.average_salary)}.
     - ${getJobFunctionData('Engineering, Product, and Research').salary_info_percentage}% of jobs in Engineering, Product, and Research include salary information.
     - Only ${getJobFunctionData('Design, Art, and Creative').salary_info_percentage}% of jobs in Design, Art, and Creative include salary information.
             `}
