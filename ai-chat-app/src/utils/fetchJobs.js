@@ -23,3 +23,18 @@ export const fetchJobs = async () => {
     jobsdata.sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date));
     return jobsdata;    
 }
+
+export const fetchSkills = async () => {
+    const skillsdata = [];
+    for (let i = 0; i < 5000; i += 1000) {
+        const { data: skillsdata_i, error_i } = await supabase
+        .from('jobs_clean')
+        .select('skills, job_function')
+        .gte('posted_date', '2025-03-01')
+        .range(i, i+999)
+        .match({source: 'cryptojobs.com'});
+        if (error_i) throw error_i;
+        skillsdata.push(...skillsdata_i);
+    }
+    return skillsdata;
+}
