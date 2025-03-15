@@ -30,7 +30,7 @@ supabase_response = (
 
 df_data = pd.DataFrame(supabase_response.data)
 df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amount', 
-                   'skills', 'source', 'job_url', 'posted_date', 'my_id'
+                   'skills', 'source', 'job_url', 'posted_date', 'job_id'
                    ]]
 
 job_df = pai.DataFrame(df_data)
