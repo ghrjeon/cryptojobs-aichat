@@ -68,10 +68,10 @@ const Home = () => {
       <Description>
         <h3>Discover and analyze crypto job trends!</h3>
         <p>
-          📌 Methodology - Learn about the data collection and processing pipeline.<br />
           📌 Chat - Interact with AI to explore crypto jobs database.<br />
           📌 Analysis - Gain insights into crypto job market with interactive dashboards.<br />
-          📌 Table - Browse job listings with advanced filters and search functionality.
+          📌 Table - Browse job listings with advanced filters and search functionality.<br />
+          📌 Methodology - Learn about the data collection and processing pipeline.<br />
         </p>
       </Description>
       <br></br>
@@ -89,7 +89,6 @@ const Home = () => {
         </List>
       </Description>
 
-      <br></br>
       <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 
@@ -115,14 +114,6 @@ const Home = () => {
           rel="noopener noreferrer"
         >
           <code>Rosalyn's Dune Dashboard</code>
-          <span>↗︎</span>
-        </LinkCard>
-        <LinkCard 
-          href="https://rosalyn.observablehq.cloud/rosalyn-analytics/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <code>Rosalyn's Blockchain and Twitter Analytics</code>
           <span>↗︎</span>
         </LinkCard>
       </LinksContainer>
