@@ -21,14 +21,38 @@ app = Flask(__name__)
 CORS(app) 
 
 # Load job data
+supabase_db = pd.DataFrame()
+
+for i in range(0, 5000, 1000):
+    try:
+        supabase_response = (
+            supabase.table("jobs_clean")
+            .select("*")
+            .gte('ingestion_date', '2025-03-01')
+            .range(i, i+999)
+            .execute()
+        )
+        
+        # Check if data exists and is not None
+        if supabase_response and hasattr(supabase_response, 'data') and supabase_response.data:
+            batch_df = pd.DataFrame(supabase_response.data)
+            supabase_db = pd.concat([supabase_db, batch_df])
+        else:
+            print("No data returned for batch starting at index", i)
+            break
+    except Exception as e:
+        print(f"Error processing batch starting at index {i}: {e}")
+        break
+
 
 supabase_response = (
     supabase.table("jobs_clean")
     .select("*")
     .execute()
 )
-
-df_data = pd.DataFrame(supabase_response.data)
+df_data = pd.DataFrame(supabase_db)
+print(df_data.shape)
+# df_data = pd.DataFrame(supabase_response.data)
 df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amount', 
                    'skills', 'source', 'job_url', 'posted_date', 'job_id'
                    ]]
@@ -62,11 +86,12 @@ def serve_chart(filename):
 def chat():
     try:
         query = request.json.get('query')
+        print(query)
         if not query:
             return jsonify({'error': 'No query provided'}), 400
 
         response = job_df.chat(query)
-        # print("Raw response:", response)  # Debug log
+        print("Raw response:", response)  # Debug log
         
         response_json_str = response.to_json()
         response_json = json.loads(response_json_str)
@@ -122,6 +147,8 @@ def chat():
 
         return jsonify({'result': result})
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"Exception occurred: {str(e)}")  # Debug log
         return jsonify({
             'error': {
