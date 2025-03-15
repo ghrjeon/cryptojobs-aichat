@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import DataTable from 'react-data-table-component';
 import ReactMarkdown from 'react-markdown';
 import { customStyles } from './customStyle';
+import { fetchSkills } from '../utils/fetchJobs';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
@@ -23,15 +24,9 @@ function SkillsTable() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data, error } = await supabase
-                    .from('jobs_clean')
-                    .select('skills, job_function')
-                    .gte('posted_date', '2025-03-01')
-                    .match({source: 'cryptojobs.com'});
+                const fetchedData = await fetchSkills();
 
-                if (error) throw error;
-
-                const filteredData = data.filter(job => 
+                const filteredData = fetchedData.filter(job => 
                     jobFunctions.includes(job.job_function)
                 );
 
