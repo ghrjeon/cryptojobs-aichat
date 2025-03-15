@@ -21,8 +21,8 @@ aiClient= OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 def main():
 
     # Get job data from supabase
-    df1 = get_job_data("cryptojobscom")
-    df2 = get_job_data("web3career")
+    df1 = get_job_latest_data("cryptojobscom")
+    df2 = get_job_latest_data("web3career")
 
     print("\nDataset 1 size:", len(df1))
     print("Dataset 2 size:", len(df2))
@@ -342,6 +342,11 @@ def infer_job_function(df):
     # Combine the processed jobs with the rest of the dataframe
     jobs_to_process['job_function'].replace("- ", "", inplace=True)
     df = pd.concat([df[df['job_function'] != "Unknown"], jobs_to_process]).reset_index(drop=True)
+    
+    job_function_list = ['Engineering, Product, and Research', 'Business, Strategy, and Operations', 'Data and Analytics', 'Design, Art, and Creative']
+    df['job_function'] = df['job_function'].apply(lambda x: x if x in job_function_list else 'Unknown')
+    df = df[df['job_function'] != 'Unknown']
+
     return df
 
 def clean_data(df):
@@ -377,13 +382,20 @@ def upload_to_supabase(df, table_name: str):
     )
     return response
 
-def get_job_data(table_name: str) -> pd.DataFrame:
+def get_job_latest_data(table_name: str) -> pd.DataFrame:
     response = (
         supabase.table(table_name)
         .select("*")
         .execute()
     )
     df = pd.DataFrame(response.data)
+
+    # Get the latest date
+    latest_date = df['ingestion_date'].max()
+    print(f"Latest ingestion date: {latest_date}")
+    # Filter the dataframe to only include the latest date
+    df = df[df['ingestion_date'] == latest_date]
+
     return df
 
 if __name__ == "__main__":
