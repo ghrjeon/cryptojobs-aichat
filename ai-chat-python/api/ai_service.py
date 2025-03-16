@@ -91,11 +91,11 @@ def chat():
             return jsonify({'error': 'No query provided'}), 400
 
         response = job_df.chat(query)
-        print("Raw response:", response)  # Debug log
+        # print("Raw response:", response)  # Debug log
         
         response_json_str = response.to_json()
         response_json = json.loads(response_json_str)
-        
+        print(response_json)
         # If it's an error response, include more details
         if response_json.get('type') == 'error':
             result = {
@@ -125,25 +125,25 @@ def chat():
             result = {'type': response_json.get('type'), 
                      'code': response_json.get('last_code_executed'), 
                      'value': json_str}
-            print(result)
+            # print(result)
         
         elif response_json.get('type') == 'chart':
             result = {'type': response_json.get('type'), 
                      'code': response_json.get('last_code_executed'), 
                      'value': response_json.get('value')}
-            print('chart result')
+            # print('chart result')
 
         elif response_json.get('type') == 'string':
             result = {'type': response_json.get('type'), 
                      'code': response_json.get('last_code_executed'), 
                      'value': response_json.get('value')}
-            print(result)
+            # print(result)
 
         else:
             result = {'type': response_json.get('type'), 
                      'code': response_json.get('last_code_executed'), 
                      'value': response_json.get('value')}
-            print(result)
+            # print(result)
 
         return jsonify({'result': result})
     except Exception as e:
