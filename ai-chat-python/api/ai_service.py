@@ -91,6 +91,7 @@ def chat():
             return jsonify({'error': 'No query provided'}), 400
 
         response = job_df.chat(query)
+        # print("Raw response:", response)  # Debug log
         
         # Handle different response types
         try:
