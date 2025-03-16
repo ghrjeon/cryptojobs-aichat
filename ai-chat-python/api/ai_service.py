@@ -14,6 +14,8 @@ import shutil
 import uuid
 import re
 import sys
+import webbrowser
+import subprocess
 
 dotenv.load_dotenv()
 
@@ -25,6 +27,18 @@ def patched_system(command):
         return 0
     return original_system(command)
 os.system = patched_system
+
+# Additional patches to prevent file opening
+webbrowser.open = lambda url: print(f"Blocked webbrowser.open({url})")
+
+# If needed, also patch subprocess
+original_run = subprocess.run
+def patched_run(*args, **kwargs):
+    if args and isinstance(args[0], (list, tuple)) and any('xdg-open' in str(arg) for arg in args[0]):
+        print(f"Blocked subprocess.run with xdg-open")
+        return None
+    return original_run(*args, **kwargs)
+subprocess.run = patched_run
 
 # Ensure exports/charts directory exists
 charts_dir = os.path.join(os.getcwd(), 'exports', 'charts')
@@ -149,9 +163,18 @@ def chat():
             print(result)
         
         elif response_json.get('type') == 'chart':
-            result = {'type': response_json.get('type'), 
-                     'code': response_json.get('last_code_executed'), 
-                     'value': response_json.get('value')}
+            # Extract just the filename from the path
+            chart_path = response_json.get('value')
+            chart_filename = os.path.basename(chart_path)
+            
+            # Construct the URL path (adjust domain as needed)
+            chart_url = f"/api/exports/charts/{chart_filename}"
+            
+            result = {
+                'type': response_json.get('type'), 
+                'code': response_json.get('last_code_executed'), 
+                'value': chart_url  # Return the URL instead of the file path
+            }
             print('chart result')
 
         elif response_json.get('type') == 'string':
