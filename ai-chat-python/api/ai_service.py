@@ -91,83 +91,62 @@ def chat():
             return jsonify({'error': 'No query provided'}), 400
 
         response = job_df.chat(query)
-        # print("Raw response:", response)  # Debug log
+        print("Raw response:", response)  # Debug log
         
-        # Handle different response types
-        try:
-            # Try to convert to JSON string first
-            response_json_str = response.to_json()
-            response_json = json.loads(response_json_str)
-            print(response_json)
-            
-            # If it's an error response, include more details
-            if response_json.get('type') == 'error':
-                result = {
-                    'type': 'error',
-                    'code': response_json.get('last_code_executed'),
-                    'value': response_json.get('value'),
-                    'error_details': {
-                        'raw_response': str(response),
-                        'executed_code': response_json.get('last_code_executed'),
-                        'error_message': response_json.get('value')
-                    }
+        response_json_str = response.to_json()
+        response_json = json.loads(response_json_str)
+        
+        # If it's an error response, include more details
+        if response_json.get('type') == 'error':
+            result = {
+                'type': 'error',
+                'code': response_json.get('last_code_executed'),
+                'value': response_json.get('value'),
+                'error_details': {
+                    'raw_response': str(response),
+                    'executed_code': response_json.get('last_code_executed'),
+                    'error_message': response_json.get('value')
                 }
-                print("Error details:", result)  
-                return jsonify({'result': result})
+            }
+            print("Error details:", result)  
+            return jsonify({'result': result})
 
-            # Extract the values from response
-            if response_json.get('type') == 'dataframe':
-                df_data_dict = response_json.get('value')
-                df_data = pd.DataFrame(
-                    data=df_data_dict["data"],
-                    columns=df_data_dict["columns"],
-                    index=df_data_dict["index"]
-                )
-                json_str = df_data.to_json(orient="records")
+        # Extract the values from response
+        if response_json.get('type') == 'dataframe':
 
-                result = {'type': response_json.get('type'), 
-                         'code': response_json.get('last_code_executed'), 
-                         'value': json_str}
-            
-            elif response_json.get('type') == 'chart':
-                result = {'type': response_json.get('type'), 
-                         'code': response_json.get('last_code_executed'), 
-                         'value': response_json.get('value')}
+            df_data_dict = response_json.get('value')
+            df_data = pd.DataFrame(
+                data=df_data_dict["data"],
+                columns=df_data_dict["columns"],
+                index=df_data_dict["index"]
+            )
+            json_str = df_data.to_json(orient="records")
 
-            elif response_json.get('type') == 'string':
-                result = {'type': response_json.get('type'), 
-                         'code': response_json.get('last_code_executed'), 
-                         'value': response_json.get('value')}
+            result = {'type': response_json.get('type'), 
+                     'code': response_json.get('last_code_executed'), 
+                     'value': json_str}
+            print(result)
+        
+        elif response_json.get('type') == 'chart':
+            result = {'type': response_json.get('type'), 
+                     'code': response_json.get('last_code_executed'), 
+                     'value': response_json.get('value')}
+            print('chart result')
 
-            else:
-                result = {'type': response_json.get('type'), 
-                         'code': response_json.get('last_code_executed'), 
-                         'value': str(response_json.get('value'))}  # Convert to string as fallback
-                
-        except (AttributeError, TypeError) as e:
-            # If response is not JSON serializable, handle it differently
-            print(f"Response serialization error: {str(e)}")
-            
-            # Determine the type of response
-            if isinstance(response, pd.DataFrame):
-                json_str = response.to_json(orient="records")
-                result = {
-                    'type': 'dataframe',
-                    'code': 'Direct DataFrame result',
-                    'value': json_str
-                }
-            else:
-                # For any other type, convert to string
-                result = {
-                    'type': 'string',
-                    'code': 'Direct result',
-                    'value': str(response)
-                }
+        elif response_json.get('type') == 'string':
+            result = {'type': response_json.get('type'), 
+                     'code': response_json.get('last_code_executed'), 
+                     'value': response_json.get('value')}
+            print(result)
+
+        else:
+            result = {'type': response_json.get('type'), 
+                     'code': response_json.get('last_code_executed'), 
+                     'value': response_json.get('value')}
+            print(result)
 
         return jsonify({'result': result})
     except Exception as e:
-        import traceback
-        traceback.print_exc()
         print(f"Exception occurred: {str(e)}")  # Debug log
         return jsonify({
             'error': {
