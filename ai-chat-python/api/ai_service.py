@@ -11,11 +11,24 @@ from flask_cors import CORS
 from supabase import create_client, Client
 import base64
 import shutil
+import uuid
+import re
+import sys
 
 dotenv.load_dotenv()
 
+# Monkey patch os.system to prevent xdg-open from being called
+original_system = os.system
+def patched_system(command):
+    if 'xdg-open' in command:
+        print(f"Blocked command: {command}")
+        return 0
+    return original_system(command)
+os.system = patched_system
+
 # Ensure exports/charts directory exists
-os.makedirs(os.path.join(os.getcwd(), 'exports', 'charts'), exist_ok=True)
+charts_dir = os.path.join(os.getcwd(), 'exports', 'charts')
+os.makedirs(charts_dir, exist_ok=True)
 
 supabaseUrl = os.getenv("REACT_APP_SUPABASE_URL")
 supabaseKey = os.getenv("REACT_APP_SUPABASE_KEY")
@@ -62,23 +75,18 @@ df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amoun
                    'skills', 'source', 'job_url', 'posted_date', 'job_id'
                    ]]
 
-# Configure PandasAI with custom settings for headless environment
-pai_config = pai.config.Config(
-    save_charts=True,
-    save_charts_path=os.path.join(os.getcwd(), 'exports', 'charts'),
-    open_charts=False,  # Don't try to open charts with xdg-open
-    enable_cache=True
-)
+# Set PandasAI API key
+pai.api_key.set(os.getenv("PANDASAI_API_KEY"))
 
-job_df = pai.DataFrame(df_data, config=pai_config)
+# Create PandasAI DataFrame
+job_df = pai.DataFrame(df_data)
 
 print(job_df.columns)
 print(job_df.dtypes)
 
-pai.api_key.set(os.getenv("PANDASAI_API_KEY"))
-
-# Route to serve chart images
+# Route to serve chart images - add both paths for compatibility
 @app.route('/exports/charts/<filename>')
+@app.route('/api/exports/charts/<filename>')
 def serve_chart(filename):
     try:
         directory = os.path.join(os.getcwd(), 'exports', 'charts')
@@ -93,24 +101,6 @@ def serve_chart(filename):
     except Exception as e:
         print(f"Error serving chart: {str(e)}")
         return jsonify({'error': str(e)}), 500
-
-# Helper function to handle chart files
-def process_chart_file(chart_path):
-    try:
-        # If the chart path is a temporary file, copy it to our exports directory
-        if '/tmp/' in chart_path:
-            filename = os.path.basename(chart_path)
-            destination = os.path.join(os.getcwd(), 'exports', 'charts', filename)
-            shutil.copy2(chart_path, destination)
-            return os.path.join('/exports/charts', filename)
-        elif chart_path.startswith('/exports/charts/'):
-            return chart_path
-        else:
-            # If it's already a relative path, just return it
-            return chart_path
-    except Exception as e:
-        print(f"Error processing chart file: {str(e)}")
-        return chart_path
 
 # Route to handle chat requests
 @app.route('/api/chat', methods=['POST'])
@@ -159,16 +149,10 @@ def chat():
             print(result)
         
         elif response_json.get('type') == 'chart':
-            # Process the chart path to ensure it's accessible
-            chart_path = response_json.get('value')
-            processed_path = process_chart_file(chart_path)
-            
-            result = {
-                'type': response_json.get('type'), 
-                'code': response_json.get('last_code_executed'), 
-                'value': processed_path
-            }
-            print(f'Chart generated at: {processed_path}')
+            result = {'type': response_json.get('type'), 
+                     'code': response_json.get('last_code_executed'), 
+                     'value': response_json.get('value')}
+            print('chart result')
 
         elif response_json.get('type') == 'string':
             result = {'type': response_json.get('type'), 
