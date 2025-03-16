@@ -9,8 +9,13 @@ import pandasai as pai
 import json 
 from flask_cors import CORS
 from supabase import create_client, Client
+import base64
+import shutil
 
 dotenv.load_dotenv()
+
+# Ensure exports/charts directory exists
+os.makedirs(os.path.join(os.getcwd(), 'exports', 'charts'), exist_ok=True)
 
 supabaseUrl = os.getenv("REACT_APP_SUPABASE_URL")
 supabaseKey = os.getenv("REACT_APP_SUPABASE_KEY")
@@ -57,7 +62,15 @@ df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amoun
                    'skills', 'source', 'job_url', 'posted_date', 'job_id'
                    ]]
 
-job_df = pai.DataFrame(df_data)
+# Configure PandasAI with custom settings for headless environment
+pai_config = pai.config.Config(
+    save_charts=True,
+    save_charts_path=os.path.join(os.getcwd(), 'exports', 'charts'),
+    open_charts=False,  # Don't try to open charts with xdg-open
+    enable_cache=True
+)
+
+job_df = pai.DataFrame(df_data, config=pai_config)
 
 print(job_df.columns)
 print(job_df.dtypes)
@@ -80,6 +93,24 @@ def serve_chart(filename):
     except Exception as e:
         print(f"Error serving chart: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
+# Helper function to handle chart files
+def process_chart_file(chart_path):
+    try:
+        # If the chart path is a temporary file, copy it to our exports directory
+        if '/tmp/' in chart_path:
+            filename = os.path.basename(chart_path)
+            destination = os.path.join(os.getcwd(), 'exports', 'charts', filename)
+            shutil.copy2(chart_path, destination)
+            return os.path.join('/exports/charts', filename)
+        elif chart_path.startswith('/exports/charts/'):
+            return chart_path
+        else:
+            # If it's already a relative path, just return it
+            return chart_path
+    except Exception as e:
+        print(f"Error processing chart file: {str(e)}")
+        return chart_path
 
 # Route to handle chat requests
 @app.route('/api/chat', methods=['POST'])
@@ -128,10 +159,16 @@ def chat():
             print(result)
         
         elif response_json.get('type') == 'chart':
-            result = {'type': response_json.get('type'), 
-                     'code': response_json.get('last_code_executed'), 
-                     'value': response_json.get('value')}
-            print('chart result')
+            # Process the chart path to ensure it's accessible
+            chart_path = response_json.get('value')
+            processed_path = process_chart_file(chart_path)
+            
+            result = {
+                'type': response_json.get('type'), 
+                'code': response_json.get('last_code_executed'), 
+                'value': processed_path
+            }
+            print(f'Chart generated at: {processed_path}')
 
         elif response_json.get('type') == 'string':
             result = {'type': response_json.get('type'), 
