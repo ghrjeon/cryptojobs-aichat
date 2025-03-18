@@ -16,29 +16,31 @@ https://rosalyn-cryptojobs-ai.vercel.app/
    - Aggregating crypto job listings into a structured, searchable database
    - Analyzing job market trends to uncover insights into the crypto job landscape
 
-🚀 This project integrates ML, NLP, LLM, and full-stack development to enhance analytics and job discovery.<br>
+🚀 This project integrates web scraping, ML, NLP, LLM, and full-stack development to enhance analytics and job discovery.<br>
 🚀 Hope you find this project valuable!<br>
 
 ## Content
 📌 Chat - Interact with AI to explore crypto jobs database. <br>
 📌 Analysis - Gain insights into crypto job market with interactive dashboards. <br>
 📌 Table - Browse job listings with advanced filters and search functionality. <br>
+📌 Methodology - Learn about the data collection and processing pipeline.
 
 ## Stacks used
 <b>Data Collection</b>: Selenium, BeautifulSoup <br>
-<b>Data Warehousing</b>: Supabase <br>
+<b>Data Lake/Warehousing</b>: Supabase <br>
 <b>Data Processing</b>: Python, OpenAI, Scikit-learn <br>
 <b>LLM Chat Integration</b>: Pandas AI <br>
 <b>Data Visualization</b>: Plotly, D3.js <br>
 <b>Backend</b>: Python, Flask <br>
 <b>Frontend</b>: React, JavaScript <br>
+<b>Orchestration</b>: GitHub Actions <br>
 
 ## Pipeline and Methodology
-1. Data Collection
+1. Data Collection (ETL repo: <a href="https://github.com/ghrjeon/cryptojobs-pipeline" target="_blank" rel="noopener noreferrer">cryptojobs-pipeline</a>)
    - Define a structured schema for data collection.
-   - Perform web scraping using Selenium and BeautifulSoup (scripts not included in this pipeline).
+   - Perform web scraping using Selenium and BeautifulSoup.
    - Store scraped data in Supabase and create APIs for access. 
-3. Data Processing via ML/AI
+3. Data Processing via ML/AI (ETL repo: <a href="https://github.com/ghrjeon/cryptojobs-pipeline" target="_blank" rel="noopener noreferrer">cryptojobs-pipeline</a>)
    - Clean and preprocess fetched data using Python.
    - Generate embeddings via OpenAI and apply cosine similarity (Scikit-learn) to remove duplicates.
    - Infer job functions and locations using OpenAI.
@@ -52,8 +54,6 @@ https://rosalyn-cryptojobs-ai.vercel.app/
 
 ## Next steps
 - Add more data sources (e.g., jobstash.xyz)
-- Automate dag using Airflow
-
 
 # Directory Structure  
       .
@@ -73,8 +73,6 @@ https://rosalyn-cryptojobs-ai.vercel.app/
       └── ai-chat-python                # Python Backend
           ├── api                       
           │   └── ai_service.py         # Handles AI model queries (PandasAI)
-          ├── ingestion
-          │   └── infer.py              # Data processing and inference using OpenAI & Scikit-learn
           └── requirements.txt          # Backend dependencies 
 
 # Requirements 
@@ -89,5 +87,5 @@ https://rosalyn-cryptojobs-ai.vercel.app/
 - Matplotlib 3.5.1
 - Seaborn 0.12.2
 - React-plotly.js 2.6.0
-- API Keys (PandasAI, OpenAI) <br>
+- API Keys (PandasAI, OpenAI, Supabase) <br>
 - Note: older package versions used to reduce dependency size
