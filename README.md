@@ -1,6 +1,6 @@
 # Crypto Jobs Analytics
 
-Hello! Welcome to Rosalyn's Crypto Jobs Analytics, an AI-powered platform designed to showcase my <b>data science</b> and <b>engineering skills</b> while optimizing my job search process. 
+Hello! Welcome to Rosalyn's Crypto Jobs Analytics, an AI-powered platform designed to provide insights into the crypto job market and optimize job search while showcasing my data science and engineering skills. 
 
 https://rosalyn-cryptojobs-ai.vercel.app/
 
