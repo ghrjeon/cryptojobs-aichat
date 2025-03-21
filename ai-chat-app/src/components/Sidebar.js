@@ -88,15 +88,15 @@ const Sidebar = () => {
           </StyledNavLink>
         </NavItem>
         <NavItem>
-          <StyledNavLink to="/chat" isOpen={isOpen}>
-            <MessageSquare />
-            <IconText isOpen={isOpen}>Chat</IconText>
-          </StyledNavLink>
-        </NavItem>
-        <NavItem>
           <StyledNavLink to="/analysis" isOpen={isOpen}>
             <ChartPie />
             <IconText isOpen={isOpen}>Analysis</IconText>
+          </StyledNavLink>
+        </NavItem>
+        <NavItem>
+          <StyledNavLink to="/chat" isOpen={isOpen}>
+            <MessageSquare />
+            <IconText isOpen={isOpen}>Chat</IconText>
           </StyledNavLink>
         </NavItem>
         <NavItem>

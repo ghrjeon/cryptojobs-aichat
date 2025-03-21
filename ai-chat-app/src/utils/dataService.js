@@ -1,7 +1,7 @@
 // import OpenAI from 'openai';
 
-const API_URL = 'http://localhost:5001/api';
-
+// const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://ai-chat-python-backend.onrender.com/api';
 // Keep track of conversation history
 let conversationHistory = [];
 
@@ -44,4 +44,3 @@ export const searchData = async (input, previousMessages = []) => {
 export const resetConversation = () => {
     conversationHistory = [];
 };
-

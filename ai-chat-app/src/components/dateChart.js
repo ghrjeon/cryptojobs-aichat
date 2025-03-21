@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import DataTable from 'react-data-table-component';
 import ReactMarkdown from 'react-markdown';
 import { customStyles, functionColors } from './customStyle';
+import { fetchJobs } from '../utils/fetchJobs';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
@@ -21,12 +22,7 @@ function DateChart() {
         const fetchData = async () => {
             try {
                 // Get all jobs
-                const { data: fetchedData, error } = await supabase
-                    .from('jobs_clean')
-                    .select('*')
-                    .gte('posted_date', '2025-03-01');
-
-                if (error) throw error;
+                const fetchedData = await fetchJobs();
 
                 // Group jobs by date and function
                 const jobsByDate = {};
@@ -110,7 +106,7 @@ function DateChart() {
             }}>
                     <ReactMarkdown>
                     {`
-- Postings tend to peak on certain dates rather than being uniformly distributed.
+- Postings peak on Tuesday and decrease throughout the week. 
                     `}
                     </ReactMarkdown>
                 </div>

@@ -230,7 +230,7 @@ function FunctionChart() {
     - The average salary for crypto job postings exceeds $100,000.
     - ${highestsalary.jobfunction} is the highest paying job function at ${formatCurrency(highestsalary.average_salary)}.
     - ${getJobFunctionData('Engineering, Product, and Research').salary_info_percentage}% of jobs in Engineering, Product, and Research include salary information.
-    - Only ${getJobFunctionData('Design, Art, and Creative').salary_info_percentage}% of jobs in Design, Art, and Creative include salary information.
+    - ${getJobFunctionData('Design, Art, and Creative').salary_info_percentage}% of jobs in Design, Art, and Creative include salary information.
             `}
           </ReactMarkdown>
           </div>

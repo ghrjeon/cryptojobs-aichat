@@ -2,9 +2,10 @@ import DataTable from 'react-data-table-component';
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { customStyles } from './customStyle';
+import { fetchJobs } from '../utils/fetchJobs';
+
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function CleanedTable() {
@@ -18,13 +19,8 @@ function CleanedTable() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: jobsdata, error } = await supabase
-                .from('jobs_clean')
-                .select('*')
-                .gte('posted_date', '2025-03-01');
-                if (error) throw error;
-
-                // console.log(jobsdata);
+                const jobsdata = await fetchJobs();
+                jobsdata.sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date));
                 setData(jobsdata);
                 setLoading(false);
             } catch (error) {
@@ -33,7 +29,6 @@ function CleanedTable() {
                 setLoading(false);
             }
         };
-
         fetchData();
     }, []);
 

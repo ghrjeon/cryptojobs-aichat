@@ -69,30 +69,30 @@ const Home = () => {
       <Description>
         <ReactMarkdown>
           {`
-
 1. Data Collection:
    - Schema is defined for data collection
    - Data is scraped from crypto job boards using Selenium and BeautifulSoup
-   - Collected data is stored in Supabase and APIs are created for access
+   - Collected data is stored in Supabase, and APIs are created for access
 
 2. Data Processing:
    - Collected data is processed using Python
    - Embeddings are generated via OpenAI
    - Duplicate entries are detected and removed using Cosine Similarity (Scikit-learn)
    - Job functions and Locations are inferred via keyword matching and LLM via OpenAI
-   - Processed data is stored in Supabase and APIs are created for access
+   - Processed data is stored in Supabase, and APIs are created for access
+   - ETL is orchestrated via GitHub Actions
 
 3. AI Chat Integration:
    - Processed data is loaded into PandasAI for chat integration
    - Python Flask backend is built to handle message processing and responses
-   - React + JavaScript chat interface is built to interact with the backend API
+   - React + JavaScript chat interface is built to service various AI response formats
 
 4. Data Visualization:
    - Dashboard is built and data insights are visualized using Plotly and D3.js
 
 5. Next Steps:
    - Add more data sources (e.g., jobstash.xyz )
-   - Automate dag using Airflow
+   - Fine-tune LLM to improve job function inference
           `}
         </ReactMarkdown>
       </Description>
@@ -106,6 +106,8 @@ const Home = () => {
           <li>Data Visualization: Plotly, D3.js</li>
           <li>Backend: Python, Flask</li>
           <li>Frontend: React, JavaScript</li>
+          <li>Deployment: Render, Vercel</li>
+          <li>Orchestration: GitHub Actions</li>
         </List>
       </Description>
       <LinksContainer>

@@ -4,12 +4,12 @@ import { createClient } from '@supabase/supabase-js';
 import DataTable from 'react-data-table-component';
 import ReactMarkdown from 'react-markdown';
 import { customStyles } from './customStyle';
+import { fetchJobs } from '../utils/fetchJobs';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
-
 
 function CompanyChart() {
     const [companyData, setCompanyData] = useState([]);
@@ -19,13 +19,7 @@ function CompanyChart() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: fetchedData, error } = await supabase
-                    .from('jobs_clean')
-                    .select('*')
-                    .gte('posted_date', '2025-03-01');
-
-
-                if (error) throw error;
+                const fetchedData = await fetchJobs();
 
                 const companyCount = {};
                 fetchedData.forEach(job => {
@@ -61,7 +55,7 @@ function CompanyChart() {
                 const jobRangeArray = Object.entries(jobRanges).map(([range, count]) => ({
                     range,
                     count,
-                    percentage: ((count / formattedData.length) * 100).toFixed(1) + '%'
+                    percentage: ((count / formattedData.length) * 100).toFixed(1)
                 }));
 
                 setJobRangeData(jobRangeArray);
@@ -105,7 +99,7 @@ function CompanyChart() {
         },
         {
             name: 'Percentage',
-            selector: row => row.percentage,
+            selector: row => row.percentage + '%',
             sortable: true,
         },
     ];
@@ -152,7 +146,7 @@ function CompanyChart() {
 
     const getRangeData = (range) => {
         const data = jobRangeData.find(item => item.range === range);
-        return data ? data.percentage : 0;
+        return data ? parseFloat(data.percentage) || 0 : 0;
     };
 
     return (
@@ -164,9 +158,9 @@ function CompanyChart() {
         <ReactMarkdown>
             {`
 - Dataset contains ${companyData.length} unique companies.
-- ${getRangeData('1 job')}% of companies have only one job posting.
+- ${getRangeData('1 job')}% of companies have one job posting.
 - ${getRangeData('2-5 jobs') + getRangeData('6-10 jobs')}% of companies have 2-10 job postings.
-- ${getRangeData('10+ jobs')}% of companies have more than 10 job postings.
+- ${getRangeData('11-20 jobs') + getRangeData('20+ jobs')}% of companies have more than 10 job postings.
 - Top 5 companies by number of postings:
    - ${companyData[0].company} (${companyData[0].count}), ${companyData[1].company} (${companyData[1].count}), ${companyData[2].company} (${companyData[2].count}), ${companyData[3].company} (${companyData[3].count}), and ${companyData[4].company} (${companyData[4].count}).
             `}

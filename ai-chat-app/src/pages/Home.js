@@ -68,10 +68,10 @@ const Home = () => {
       <Description>
         <h3>Discover and analyze crypto job trends!</h3>
         <p>
-          📌 Chat - Interact with AI to explore crypto jobs database.<br />
           📌 Analysis - Gain insights into crypto job market with interactive dashboards.<br />
+          📌 Chat - Interact with AI to explore crypto jobs database.<br />
           📌 Table - Browse job listings with advanced filters and search functionality.<br />
-          📌 Methodology - Learn about the data collection and processing pipeline.<br />
+          📌 Methodology - Learn about the data collection and processing pipelines.<br />
         </p>
       </Description>
       <br></br>
@@ -80,12 +80,14 @@ const Home = () => {
         <h3>Stacks Used:</h3>
         <List>
           <li>Data Collection: Selenium, BeautifulSoup</li>
-          <li>Data Warehousing: Supabase</li>
+          <li>Data Lake/Warehousing: Supabase</li>
           <li>Data Processing: Python, OpenAI, Scikit-learn</li>
           <li>LLM Chat Integration: Pandas AI</li>
           <li>Data Visualization: Plotly, D3.js</li>
           <li>Backend: Python, Flask</li>
           <li>Frontend: React, JavaScript</li>
+          <li>Deployment: Render, Vercel</li>
+          <li>Orchestration: GitHub Actions</li>
         </List>
       </Description>
 

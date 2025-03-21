@@ -5,6 +5,7 @@ import DataTable from 'react-data-table-component';
 import ReactMarkdown from 'react-markdown';
 import '../App.css';
 import { customStyles, functionColors } from './customStyle';
+import { fetchJobs } from '../utils/fetchJobs';
 
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -21,13 +22,8 @@ function DataMap() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: fetchedData, error } = await supabase
-                    .from('jobs_clean')
-                    .select('*')
-                    .gte('posted_date', '2025-03-01');
-
-                if (error) throw error;
-
+                const fetchedData = await fetchJobs();
+                
                 // Group jobs by country and count them
                 const countryCount = {};
                 fetchedData.forEach(job => {

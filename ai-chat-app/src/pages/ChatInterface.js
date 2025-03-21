@@ -5,6 +5,7 @@ import LoadingDots from '../components/LoadingDots';
 import * as d3 from 'd3';
 import DataTable from 'react-data-table-component';
 import CleanedTable from '../components/CleanedTable';
+import { customStyles } from '../components/customStyle';
 
 const Title = styled.h1`
   color: #2c3e50;
@@ -34,10 +35,10 @@ const TipContainer = styled.div`
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
-  background-color: '#ebf1f5';
   border-radius: 8px;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ebf1f5;
 `;
 
 const MessagesContainer = styled.div`
@@ -148,8 +149,11 @@ function ChatInterface() {
     setIsLoading(true);
 
     try {
+      console.log('Sending query:', input);
       const aiResponse = await searchData(input, messages);
       console.log('AI Response:', aiResponse); // Debug log
+      
+      setIsLoading(false);
 
       if (aiResponse.type === 'error') {
         // Handle error response
@@ -170,7 +174,9 @@ function ChatInterface() {
           code: aiResponse.code,
           details: aiResponse.error_details
         });
+        return;
       } 
+
       if (aiResponse.type === 'string' || aiResponse.type === 'number') {
         setCurrentResponse({
           type: aiResponse.type,
@@ -195,8 +201,9 @@ function ChatInterface() {
       }
     } catch (error) {
       console.error('Request error:', error);
+      setIsLoading(false);
       setError({
-        message: 'Failed to process your request',
+        message: 'PandasAI is having issues. Please try again later.',
         details: error.message
       });
       
@@ -204,8 +211,6 @@ function ChatInterface() {
         role: 'assistant',
         content: 'Sorry, I encountered an error. Please try again.'
       }]);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -213,10 +218,17 @@ function ChatInterface() {
     if (!data) {
         return <p>No data available.</p>;
     }
-    // Extract just the filename from the path
-    const chartPath = data.split('/').slice(-1)[0];
-    const chartUrl = `http://localhost:5001/exports/charts/${chartPath}`;
-    // console.log('Chart URL:', chartUrl);
+    
+    // Use the API_URL as the base URL for the chart
+    const API_URL = 'https://ai-chat-python-backend.onrender.com';
+    
+    // If data is already a full URL, use it directly
+    // Otherwise, if it's a relative path, prepend the API_URL
+    const chartUrl = data.startsWith('http') 
+        ? data 
+        : `${API_URL}${data}`;
+    
+    console.log('Chart URL:', chartUrl);
     
     return (
         <div>
@@ -239,11 +251,34 @@ function ChatInterface() {
     }
 
     // Define columns based on the keys of the first data object
-    const columns = Object.keys(data[0]).map(key => ({
-      name: key.charAt(0).toUpperCase() + key.slice(1), // Capitalize column names
-      selector: row => row[key],
-      sortable: true,
-    }));
+    const columns = Object.keys(data[0]).map(key => {
+      // Calculate max content length for this column
+      const maxLength = Math.max(
+        key.length,
+        ...data.map(row => String(row[key] || '').length)
+      );
+      
+      // Set width based on content length (with some padding)
+      const estimatedWidth = Math.min(Math.max(maxLength * 10, 100), 400);
+      
+      // Default column configuration for other columns
+      return {
+        name: key.charAt(0).toUpperCase() + key.slice(1), // Capitalize column names
+        selector: row => row[key],
+        sortable: true,
+        width: `${estimatedWidth}px`,
+        wrap: true,
+        cell: row => (
+          <div style={{ 
+            whiteSpace: 'normal', 
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
+            {row[key]}
+          </div>
+        ),
+      };
+    });
 
     return (
       <DataTable
@@ -252,10 +287,12 @@ function ChatInterface() {
         progressPending={isLoading}
         pagination
         dense
+        customStyles={customStyles}
+        style={{ width: '80vw' }}
         // Add any additional props you need
       />
     );
-  };
+  }
 
   // Render response based on current type
   const renderResponse = () => {
@@ -329,9 +366,10 @@ function ChatInterface() {
         </div>
       )}
       <TipContainer>
-        Try out these prompts!
+        Welcome! Try out these prompts!
         <ul> 
-          <li>What is the highest-paying job in each job function?</li>
+          <li>What are the top 5 highest-paying jobs?</li>
+          <li>How many postings are there in each job function category?</li>
           <li>Which country has the most job listings?</li>
           <li>Show me a bar chart of average salary by job function - lables should be fully visible. </li>
         </ul>
