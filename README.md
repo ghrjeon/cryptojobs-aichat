@@ -16,8 +16,7 @@ https://rosalyn-cryptojobs-ai.vercel.app/
    - Aggregating crypto job listings into a structured, searchable database
    - Analyzing job market trends to uncover insights into the crypto job landscape
 
-🚀 This project integrates web scraping, ML, NLP, LLM, and full-stack development to enhance analytics and job discovery.<br>
-🚀 Hope you find this project valuable!<br>
+This project integrates web scraping, ML, NLP, LLM, and full-stack development to enhance analytics and job discovery. Hope you find this project valuable!<br>
 
 ## Content
 📌 Chat - Interact with AI to explore crypto jobs database. <br>
