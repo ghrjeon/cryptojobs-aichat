@@ -61,6 +61,7 @@ for i in range(0, 5000, 1000):
             supabase.table("jobs_clean")
             .select("*")
             .gte('ingestion_date', '2025-03-01')
+            .gte('job_function', 'Unknown')
             .range(i, i+999)
             .execute()
         )
@@ -77,11 +78,12 @@ for i in range(0, 5000, 1000):
         break
 
 
-supabase_response = (
-    supabase.table("jobs_clean")
-    .select("*")
-    .execute()
-)
+# supabase_response = (
+#     supabase.table("jobs_clean")
+#     .select("*")
+#     .execute()
+# )
+
 df_data = pd.DataFrame(supabase_db)
 print(df_data.shape)
 # df_data = pd.DataFrame(supabase_response.data)
