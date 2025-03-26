@@ -61,7 +61,6 @@ for i in range(0, 5000, 1000):
             supabase.table("jobs_clean")
             .select("*")
             .gte('ingestion_date', '2025-03-01')
-            .gte('job_function', 'Unknown')
             .range(i, i+999)
             .execute()
         )
@@ -85,6 +84,7 @@ for i in range(0, 5000, 1000):
 # )
 
 df_data = pd.DataFrame(supabase_db)
+df_data = df_data[df_data['job_function'] != 'Unknown']
 print(df_data.shape)
 # df_data = pd.DataFrame(supabase_response.data)
 df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amount', 
