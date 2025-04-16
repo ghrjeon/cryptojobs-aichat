@@ -53,6 +53,8 @@ This project integrates web scraping, ML, NLP, LLM, and full-stack development t
 
 ## Next steps
 - Add more data sources (e.g., jobstash.xyz)
+- Fine-tune LLM to optimize job function inference
+- Create backup AI service to handle PandasAI outage
 
 # Directory Structure  
       .

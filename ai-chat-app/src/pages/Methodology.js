@@ -92,7 +92,7 @@ const Home = () => {
 
 5. Next Steps:
    - Add more data sources (e.g., jobstash.xyz )
-   - Fine-tune LLM to improve job function inference
+   - Fine-tune LLM to optimize job function inference
    - Create backup AI service to handle PandasAI outage
           `}
         </ReactMarkdown>
