@@ -111,7 +111,7 @@ const Home = () => {
         </LinkCard>
 
         <LinkCard 
-          href="https://dune.com/theano2247/me-and-tensor-market-analysis" 
+          href="https://dune.com/theano2247" 
           target="_blank" 
           rel="noopener noreferrer"
         >
