@@ -70,7 +70,7 @@ const Home = () => {
         <p>
           📌 Analysis - Gain insights into crypto job market with interactive dashboards.<br />
           📌 Chat - Interact with AI to explore crypto jobs database.<br />
-          📌 Table - Browse job listings with advanced filters and search functionality.<br />
+          📌 Table - Browse job listings with attribute filters and search functionality.<br />
           📌 Methodology - Learn about the data collection and processing pipelines.<br />
         </p>
       </Description>
