@@ -15,34 +15,98 @@ const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+const AnalysisContainer = styled.div`
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
 const Title = styled.h1`
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #000000;
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
+`;
+
+const Subtitle = styled.h2`
+  color: #000000;
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
 `;
 
 const TitleContainer = styled.div`
-  padding: 10px;
-  margin: auto ;
+  padding: 0;
+  margin-bottom: 48px;
 `;
 
-
 const ToggleButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #2c3e50;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  margin-bottom: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   
   &:hover {
-    background-color: #34495e;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
+`;
+
+const ChartContainer = styled.div`
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  padding: 32px;
+  margin-bottom: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+`;
+
+const SubtitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 24px;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+`;
+
+const Arrow = styled.span`
+  font-size: 24px;
+  margin-right: 12px;
+  transform: ${props => props.isOpen ? 'rotate(90deg)' : 'rotate(0deg)'};
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 function Analysis() {
   const [jobFunctionStats, setJobFunctionStats] = useState({});
   const [showTable, setShowTable] = useState(false);
+  const [showTakeaways, setShowTakeaways] = useState(true);
+  const [showMethodology, setShowMethodology] = useState(true); // Add this state
+  const [currentDate] = useState(new Date());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,36 +135,63 @@ function Analysis() {
   }, []);
 
   return (
-    <>
+    <AnalysisContainer>
       <TitleContainer>
-        <Title>Crypto Jobs Analysis</Title>
-        <ToggleButton onClick={() => setShowTable(!showTable)} style={{marginLeft: '20px'}}>
+        <Title>Crypto Jobs Analysis ({currentDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})})</Title>
+        <ToggleButton onClick={() => setShowTable(!showTable)}
+            style={{
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              backgroundColor: showTable ? '#f1f1f1' : '#2c3e50',
+              color: showTable ? 'black' : 'white',
+              fontWeight: showTable ? 'normal' : 'normal',
+              whiteSpace: 'nowrap'
+          }}>
           {showTable ? 'Hide Data Table' : 'Show Data Table'}
         </ToggleButton>
-      </TitleContainer>
-      {showTable && (
+        <br></br>
+        {showTable && (
           <CleanedTable />
       )}
-      <div style={{ justifyContent: 'center', alignItems: 'center', padding: '20px', paddingBottom: '0px', paddingTop: '10px' }}>
-        <TakeAway />
-      </div>
-      <div style={{ justifyContent: 'center', alignItems: 'center', padding: '20px', paddingBottom: '0px', paddingTop: '10px' }}>
-        <DataMap />
-      </div>
-      <div style={{ justifyContent: 'center', alignItems: 'center', padding: '20px', paddingBottom: '0px', paddingTop: '10px' }}>
-        <FunctionChart />
-      </div>
-      <div style={{ justifyContent: 'center', alignItems: 'center', padding: '20px', paddingBottom: '0px', paddingTop: '10px' }}>
-        <CompanyChart />
-      </div>
-      <div style={{ justifyContent: 'center', alignItems: 'center', padding: '20px', paddingBottom: '0px', paddingTop: '10px' }}>
-        <SkillsTable />
-      </div>
+      </TitleContainer>
+      
+      <SubtitleWrapper onClick={() => setShowTakeaways(!showTakeaways)}>
+        <Subtitle style={{ margin: 0 }}>Takeaways</Subtitle> 
+        &nbsp;&nbsp;&nbsp; <Arrow isOpen={showTakeaways}>›</Arrow>
+      </SubtitleWrapper>
 
-      <div style={{ justifyContent: 'center', alignItems: 'center', padding: '20px', paddingBottom: '0px', paddingTop: '10px' }}>
-        <DateChart /> 
-      </div>
-    </>
+      {showTakeaways && (
+        <ChartContainer>
+          <TakeAway />
+        </ChartContainer>
+      )}
+
+      <ChartContainer>
+        <DataMap />
+      </ChartContainer>
+
+      <ChartContainer>
+        <FunctionChart />
+      </ChartContainer>
+
+      <ChartContainer>
+        <CompanyChart />
+      </ChartContainer>
+
+      <ChartContainer>
+        <SkillsTable />
+      </ChartContainer>
+
+      <ChartContainer>
+        <DateChart />
+      </ChartContainer>
+    </AnalysisContainer>
   );
 }
 

@@ -16,6 +16,8 @@ function DateChart() {
     const [jobsByDate, setJobsByDate] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [averageJobsPerDay, setAverageJobsPerDay] = useState(0);
+    const [medianJobsPerDay, setMedianJobsPerDay] = useState(0);
 
 
     useEffect(() => {
@@ -43,6 +45,8 @@ function DateChart() {
 
                 setData(fetchedData);
                 setJobsByDate(jobsByDate);
+                setAverageJobsPerDay(fetchedData.length / fetchedData.length);
+                setMedianJobsPerDay(fetchedData.length / 2);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -81,12 +85,12 @@ function DateChart() {
             title: 'Number of Jobs',
         },
         margin: {
-            l: 60,
+            l: 30,
             r: 30,
             b: 80,
-            t: 50,
+            t: 30,
         },
-        width: 1200,
+        width: 1100,
         height: 500,
         showlegend: true,
         legend: {
@@ -99,20 +103,17 @@ function DateChart() {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div style={{ padding: '20px', maxWidth: '100%' }}>
-            <h2>Jobs by Date</h2>
-            <div className="card-white" style= {{
-                width: '50%', 
-            }}>
-                    <ReactMarkdown>
+        <div style={{ padding: '0px', maxWidth: '100%' }}>
+        <div style={{display: 'flex', flexDirection: 'row', gap: '20px', marginBottom: '20px'}}>
+        <ReactMarkdown>
                     {`
-- Postings peak on Tuesday and decrease throughout the week. 
-                    `}
+## Jobs by Date
+    - Dataset contains ${jobsdata.length} job postings.
+    - The most recent job was posted on ${dates[dates.length - 1]}.`}
                     </ReactMarkdown>
-                </div>
-                <br></br>
+        </div>
                 <div style={{ 
-                    width: 'calc(55% - 10px)', 
+                    width: '100%', 
                     minWidth: '300px'
                 }}>
                     <Plot

@@ -1,103 +1,152 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import CleanedTable from '../components/CleanedTable';
 import ReactMarkdown from 'react-markdown';
 
 const HomeContainer = styled.div`
-  padding: 20px;
-  max-width: 900px;
+  padding: 0;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
 const Title = styled.h1`
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #000000;
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
 `;
 
 const Description = styled.div`
-  color: #34495e;
-  line-height: 1.3;
-  font-size: 1.1rem;
+  color:rgb(55, 55, 57);
+  line-height: 1.6;
+  font-size: 21px;
+  margin-bottom: 32px;
+  max-width: 900px;
+  letter-spacing: -0.003em;
+  
+  br {
+    display: none;
+    
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+`;
+
+const Subtitle = styled.h2`
+  color: #415a77;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+`;
+
+const TableContainer = styled.div`
+  margin: 32px 0;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+`;
+
+
+
+const SectionTitle = styled.h3`
+  margin-top: 28px;
+  margin-bottom: 12px;
+  color: #1b263b;
 `;
 
 const List = styled.ul`
   list-style-type: disc;
   margin-left: 20px;
   padding: 0;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  margin-top: 0
+  font-size: 1.05rem;
+  line-height: 1.5;
 `;
 
 const LinksContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
 `;
 
 const LinkCard = styled.a`
   display: flex;
   align-items: center;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background-color: #ffffff;
+  border-radius: 16px;
   text-decoration: none;
-  color: #2c3e50;
-  transition: all 0.2s ease;
-  
+  color: #1d1d1f;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
   &:hover {
-    background-color: #e9ecef;
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 
   code {
-    font-family: monospace;
+    font-family: "SF Mono", SFMono-Regular, ui-monospace, monospace;
+    font-size: 15px;
+    font-weight: 500;
+    color: #0071e3;
+    letter-spacing: -0.01em;
   }
 
   span {
-    margin-left: 8px;
+    margin-left: 12px;
+    font-size: 18px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover span {
+    opacity: 1;
   }
 `;
 
 const Home = () => {
   return (
     <HomeContainer>
-      <Title>Welcome to Rosalyn's Crypto Jobs Analytics!</Title>
-      <br></br>
+      <Title>Crypto Jobs Analytics</Title>
       <Description>
-        <h3>Discover and analyze crypto job trends!</h3>
-        <p>
-          📌 Analysis - Gain insights into crypto job market with interactive dashboards.<br />
-          📌 Chat - Interact with AI to explore crypto jobs database.<br />
-          📌 Table - Browse job listings with attribute filters and search functionality.<br />
-          📌 Methodology - Learn about the data collection and processing pipelines.<br />
-        </p>
-      </Description>
-      <br></br>
-
-      <Description>
-        <h3>Stacks Used:</h3>
-        <List>
-          <li>Data Collection: Selenium, BeautifulSoup</li>
-          <li>Data Lake/Warehousing: Supabase</li>
-          <li>Data Processing: Python, OpenAI, Scikit-learn</li>
-          <li>LLM Chat Integration: Pandas AI</li>
-          <li>Data Visualization: Plotly, D3.js</li>
-          <li>Backend: Python, Flask</li>
-          <li>Frontend: React, JavaScript</li>
-          <li>Deployment: Render, Vercel</li>
-          <li>Orchestration: GitHub Actions</li>
-        </List>
+      Crypto job market is decentralized.
+      This platform aggregates crypto job listings and provides data insights to help optimize job search.
       </Description>
 
+     <ReactMarkdown>  
+      {`
+    📌 Table - Browse job listings with filters and search functionality.
+    📌 Analysis - Gain insights into crypto job market with interactive dashboards.
+    📌 Chat - Interact with analytics AI to explore crypto jobs database.
+    📌 Methodology - Learn about the data collection and processing pipelines.`}
+      </ReactMarkdown>
+
+      <br></br>
+      <br></br>
+      <ReactMarkdown> 
+      {`
+    Rosalyn Jeon, 2025 `}
+      </ReactMarkdown>
       <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 
           target="_blank" 
           rel="noopener noreferrer"
         >
-          <code>Github to this project</code>
+          <code>GitHub to this project</code>
           <span>↗︎</span>
         </LinkCard>
 
@@ -109,18 +158,9 @@ const Home = () => {
           <code>Rosalyn's LinkedIn</code>
           <span>↗︎</span>
         </LinkCard>
-
-        <LinkCard 
-          href="https://dune.com/theano2247" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <code>Rosalyn's Dune Dashboard</code>
-          <span>↗︎</span>
-        </LinkCard>
       </LinksContainer>
     </HomeContainer>
   );
 };
 
-export default Home; 
+export default Home;

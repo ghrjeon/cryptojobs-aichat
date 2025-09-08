@@ -176,7 +176,7 @@ function FunctionChart() {
             t: 50,
         },
         showlegend: true,
-        width: 700,
+        width: 600,
         height: 400
     };
 
@@ -192,12 +192,12 @@ function FunctionChart() {
             tickformat: '$,.0f'    // Format y-axis ticks as currency
         },
         margin: {
-            l: 100,
+            l: 50,
             r: 30,
             b: 30,
             t: 50,
         },
-        width: 575,
+        width: 550,
         height: 400,
         showlegend: false  // Hide legend since it's shown in pie chart
     };
@@ -205,15 +205,11 @@ function FunctionChart() {
     const highestsalary = jobfunctionData.sort((a, b) => b.average_salary - a.average_salary)[0];
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Jobs by Function</h2>
+        <div style={{ padding: '0px' }}>
             <div style={{display: 'flex', flexDirection: 'row', gap: '20px'}}>
-            <div className="card-white" style= {{
-                width: '45%', 
-            }}>
           <ReactMarkdown>
           {`
-- Job Function Distribution: 
+## Job Function
     - ${getJobFunctionData('Engineering, Product, and Research').percentage}% of jobs are in Engineering, Product, and Research.
     - ${getJobFunctionData('Business, Strategy, and Operations').percentage}% are in Business, Strategy, and Operations.
     - ${getJobFunctionData('Data and Analytics').percentage}% are in Data and Analytics.
@@ -221,12 +217,11 @@ function FunctionChart() {
                             `}
           </ReactMarkdown>
           </div>
-          <div className="card-white" style= {{
-               width: '65%', 
-            }}>
+          <div style={{display: 'flex', flexDirection: 'row', gap: '20px'}}>
+
           <ReactMarkdown>
             {`
-- Job Function Salary:
+## Job Function Salary
     - The average salary for crypto job postings exceeds $100,000.
     - ${highestsalary.jobfunction} is the highest paying job function at ${formatCurrency(highestsalary.average_salary)}.
     - ${getJobFunctionData('Engineering, Product, and Research').salary_info_percentage}% of jobs in Engineering, Product, and Research include salary information.
@@ -234,9 +229,8 @@ function FunctionChart() {
             `}
           </ReactMarkdown>
           </div>
-        </div>
         <br></br>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0px'}}>
                 <div>
                     <DataTable
                         columns={columns}
@@ -247,7 +241,7 @@ function FunctionChart() {
                         dense
                     />
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'row', gap: '20px', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '0px', justifyContent: 'center' }}>
                     <Plot
                         data={pieData}
                         layout={pieLayout}

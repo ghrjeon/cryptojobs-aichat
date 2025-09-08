@@ -155,69 +155,33 @@ function TakeAway() {
 
     return (
         <div>
-            <h2>Key Takeaways</h2>
-            <div style={{ margin: '20px', display: 'flex', flexDirection: 'row', gap: '20px'}}> 
-                <div className="card" style={{
-                    backgroundColor: '#ebf1f5', 
-                    padding: '10px', 
-                    width: '63%',
-                    paddingLeft: '30px',
-                    borderRadius: '10px',
-                    lineHeight: '1.2',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                }}>
                     <ReactMarkdown>
                         {`
-**Location:**
-  - Listings are from ${jobStats.totalCountries || 0} unique countries. 
-  - ${remotePercentage} of the jobs are Remote, followed by US-based jobs (${usPercentage}).
+### Dataset
+    - Date range: ${jobStats.minDate || 'N/A'} to ${jobStats.maxDate || 'N/A'}
+    - Data sources: cryptojobs.com, web3.career
+    - Job functions are inferred via LLM methodologies.
 
-**Job Functions:**
-  - Engineering, Product, and Research: ${getJobFunctionData('Engineering, Product, and Research').percentage}%
-  - Business, Strategy, and Operations: ${getJobFunctionData('Business, Strategy, and Operations').percentage}%
-  - Data and Analytics: ${getJobFunctionData('Data and Analytics').percentage}%
-  - Design, Art, and Creative: ${getJobFunctionData('Design, Art, and Creative').percentage}%
+### Locations
+    - Listings are from ${jobStats.totalCountries || 0} unique countries. 
+    - Remote roles make up ${remotePercentage} of the market, followed by US-based positions at ${usPercentage}.
 
-**Salary:**
-  - Average salary posted exceeds $100,000.
-  - ${highestSalary.jobfunction} has the highest average salary (${formatCurrency(highestSalary.average_salary)}).
-  - More than ${salaryInfoPercentage}% of the jobs include salary information.
+### Listings by Job Functions
+    - Engineering, Product, and Research: ${getJobFunctionData('Engineering, Product, and Research').count} (${getJobFunctionData('Engineering, Product, and Research').percentage}%)
+    - Business, Strategy, and Operations: ${getJobFunctionData('Business, Strategy, and Operations').count} (${getJobFunctionData('Business, Strategy, and Operations').percentage}%)
+    - Data and Analytics: ${getJobFunctionData('Data and Analytics').count} (${getJobFunctionData('Data and Analytics').percentage}%)
+    - Design, Art, and Creative: ${getJobFunctionData('Design, Art, and Creative').count} (${getJobFunctionData('Design, Art, and Creative').percentage}%)  
 
-**Companies:**
-  - Dataset contains ${companyData.length} unique companies. 
-  - Most companies report 1-5 open roles, but some companies (${percentageWith10Plus}%) report 10+ open roles.
+### Average Salary
+    - Engineering, Product, and Research: ${formatCurrency(getJobFunctionData('Engineering, Product, and Research').average_salary)}
+    - Business, Strategy, and Operations: ${formatCurrency(getJobFunctionData('Business, Strategy, and Operations').average_salary)}
+    - Data and Analytics: ${formatCurrency(getJobFunctionData('Data and Analytics').average_salary)}
+    - Design, Art, and Creative: ${formatCurrency(getJobFunctionData('Design, Art, and Creative').average_salary)}
 
-**Job Skills:**
-  - Communication skills are one of the most sought-after skills across all job functions.
-  - Top technical skills required are AWS, Python, React, Java, C++, and SQL.
-                        `}
+### Companies
+    - Listings are from ${companyData.length} unique companies. 
+    - Most companies report 1-5 open roles, but some companies (${percentageWith10Plus}%) report 10+ open roles.`}
                     </ReactMarkdown>
-                </div>
-                <div className="card" style={{
-                    backgroundColor: '#ebf1f5', 
-                    padding: '10px', 
-                    width: '35%',
-                    paddingLeft: '20px',
-                    borderRadius: '10px',
-                    lineHeight: '1.3',
-                    height: '300px',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-                }}>
-                    <ReactMarkdown>
-                        {`
-**Data and Methodology:**
-  - Data sources: cryptojobs.com, web3.career
-  - Date range: ${jobStats.minDate || 'N/A'} to ${jobStats.maxDate || 'N/A'}
-  - Number of jobs collected: ${jobStats.totalJobs || 0}
-  - Job functions are categorized based on job titles using a combination of keyword matching and LLM. 
-  - Locations are mapped to countries using LLM.
-  - Skills are based on tags provided by the job poster.
-  - Analysis is updated automatically with new data ingestion.
-                        `}
-                    </ReactMarkdown>
-                </div>
-            </div>
-            <br></br>
         </div>
     );
 }

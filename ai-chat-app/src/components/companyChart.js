@@ -150,20 +150,17 @@ function CompanyChart() {
     };
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Company Distribution</h2>
-            <div className="card-white" style= {{
-                width: '65%', 
-            }}>          
+            <div className="card-white">  
+        <div style={{display: 'flex', flexDirection: 'row', gap: '20px'}}>
         <ReactMarkdown>
             {`
-- Dataset contains ${companyData.length} unique companies.
-- ${getRangeData('1 job')}% of companies have one job posting.
-- ${getRangeData('2-5 jobs') + getRangeData('6-10 jobs')}% of companies have 2-10 job postings.
-- ${getRangeData('11-20 jobs') + getRangeData('20+ jobs')}% of companies have more than 10 job postings.
-- Top 5 companies by number of postings:
-   - ${companyData[0].company} (${companyData[0].count}), ${companyData[1].company} (${companyData[1].count}), ${companyData[2].company} (${companyData[2].count}), ${companyData[3].company} (${companyData[3].count}), and ${companyData[4].company} (${companyData[4].count}).
-            `}
+## Company Distribution
+    - Dataset contains ${companyData.length} unique companies.
+    - ${getRangeData('1 job')}% of companies have one job posting.
+    - ${getRangeData('2-5 jobs') + getRangeData('6-10 jobs')}% of companies have 2-10 job postings.
+    - ${getRangeData('11-20 jobs') + getRangeData('20+ jobs')}% of companies have more than 10 job postings.
+    - Top 5 companies by number of postings:
+    - ${companyData[0].company} (${companyData[0].count}), ${companyData[1].company} (${companyData[1].count}), ${companyData[2].company} (${companyData[2].count}), ${companyData[3].company} (${companyData[3].count}), and ${companyData[4].company} (${companyData[4].count}).`}
         </ReactMarkdown>
         </div>
         <br></br>

@@ -105,9 +105,8 @@ function SkillsTable() {
     ];
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Top Skills by Job Function</h2>
-         
+        <div>
+        <h2>Top Skills by Job Function</h2>
             {/* Navigation Tabs */}
             <div style={{ 
                 display: 'flex', 
@@ -136,12 +135,12 @@ function SkillsTable() {
                 ))}
             </div>
             <div style={{display: 'flex', flexDirection: 'row', gap: '20px', 
-                marginTop: 0,
+                margin: '10px',
             }}>
             {/* Active Table */}
             {activeFunction && (
-                <div style={{width: '50%' }}>
-                    <h3>{activeFunction}</h3>
+                <div style={{width: '55%' }}>
+                    <h2>{activeFunction}</h2>
                     <DataTable
                         columns={columns}
                         data={skillsData[activeFunction]}
@@ -153,15 +152,13 @@ function SkillsTable() {
                     />
                 </div>
             )}
-            <div className="card-white" style= {{
-                width: '50%', 
-                height: '150px', marginTop: '4%'
-            }}>
+            <div style={{width: '55%', overflow: 'auto'}}>
+           <br></br>
             <ReactMarkdown>
          {`
-- Communication Skills is one of the most required skills across all job functions.
-- Many companies list soft skills even for technical roles.
-- Top technical skills include AWS, Database Management, Python, React, Java, C++, and SQL.
+    - Communication Skills is one of the most required skills across all job functions.
+    - Many companies list soft skills even for technical roles.
+    - Top technical skills include AWS, Database Management, Python, React, Java, C++, and SQL.
                 `}
                 </ReactMarkdown>
             </div>
