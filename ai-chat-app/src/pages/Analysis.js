@@ -156,7 +156,6 @@ function Analysis() {
           {showTable ? 'Hide Data Table' : 'Show Data Table'}
         </ToggleButton>
         <br></br>
-        <br></br>
         {showTable && (
           <CleanedTable />
       )}

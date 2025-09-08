@@ -101,18 +101,22 @@ const MessagesWrapper = styled.div`
 `;
 
 const ToggleButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #2c3e50;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 12px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  margin-bottom: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   
   &:hover {
-    background-color: #34495e;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 `;
+
 const TipContainer = styled.div`
   flex: 1;
   display: flex;
@@ -400,7 +404,16 @@ function ChatInterface() {
     <ChatInterfaceContainer>
       <TitleContainer>
         <Title>Chat with Crypto Jobs Database</Title>
-        <ToggleButton onClick={() => setShowTable(!showTable)}>
+        <ToggleButton onClick={() => setShowTable(!showTable)}
+          style={{
+          padding: '10px 20px',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          backgroundColor: showTable ? '#f1f1f1' : '#2c3e50',
+          color: showTable ? 'black' : 'white',
+          fontWeight: showTable ? 'normal' : 'normal',
+          whiteSpace: 'nowrap'}}>
           {showTable ? 'Hide Data Table' : 'Show Data Table'}
         </ToggleButton>
       </TitleContainer>
