@@ -137,11 +137,7 @@ function Analysis() {
   return (
     <AnalysisContainer>
       <TitleContainer>
-        <Title>Crypto Jobs Analysis ({currentDate.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-})})</Title>
+        <Title>Crypto Jobs Analysis</Title>
         <ToggleButton onClick={() => setShowTable(!showTable)}
             style={{
               padding: '10px 20px',
@@ -162,7 +158,11 @@ function Analysis() {
       </TitleContainer>
       
       <SubtitleWrapper onClick={() => setShowTakeaways(!showTakeaways)}>
-        <Subtitle style={{ margin: 0 }}>Takeaways</Subtitle> 
+        <Subtitle style={{ margin: 0 }}>Takeaways ({currentDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })})</Subtitle> 
         &nbsp;&nbsp;&nbsp; <Arrow isOpen={showTakeaways}>›</Arrow>
       </SubtitleWrapper>
 
