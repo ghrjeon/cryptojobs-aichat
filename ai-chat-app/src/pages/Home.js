@@ -136,10 +136,6 @@ const Home = () => {
 
       <br></br>
       <br></br>
-      <ReactMarkdown> 
-      {`
-    Rosalyn Jeon, 2025 `}
-      </ReactMarkdown>
       <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 

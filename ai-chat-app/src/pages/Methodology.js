@@ -200,10 +200,6 @@ const Home = () => {
           <span>↗︎</span>
         </LinkCard>
       </LinksContainer>
-      <ReactMarkdown> 
-      {`
-    Rosalyn Jeon, 2025 `}
-      </ReactMarkdown>
     </HomeContainer>
   );
 };
