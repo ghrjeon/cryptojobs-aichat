@@ -1,60 +1,51 @@
 # Crypto Jobs Analytics
+Hello! Welcome to Rosalyn's Crypto Jobs Analytics, an AI-powered platform designed to provide insights into the crypto job market and optimize job search. 
 
-Hello! Welcome to Rosalyn's Crypto Jobs Analytics, an AI-powered platform designed to provide insights into the crypto job market and optimize job search while showcasing my data science and engineering skills. 
-
-https://rosalyn-cryptojobs-ai.vercel.app/
-
-## Project goals
-- Demonstrate my skills in: <br>
-   - Advanced Web scraping for comprehensive data collection
-   - Leveraging ML and AI for data processing
-   - Utilizing cloud warehousing for seamless data accessibility
-   - Developing a custom AI chatbot specialized in data analysis
-   - Building a full-stack system with a Python backend API and a React/JavaScript frontend
-   - Creating interactive dashboards for insightful data visualization
-- Streamline my job search by:
-   - Aggregating crypto job listings into a structured, searchable database
-   - Analyzing job market trends to uncover insights into the crypto job landscape
-
-This project integrates web scraping, ML, NLP, LLM, and full-stack development to enhance analytics and job discovery. Hope you find this project valuable!<br>
+[https://cryptojobs-analytics.vercel.app/](https://cryptojobs-analytics.vercel.app/)
 
 ## Content
-📌 Chat - Interact with AI to explore crypto jobs database. <br>
+📌 Table - Browse job listings with filters and search functionality. <br>
 📌 Analysis - Gain insights into crypto job market with interactive dashboards. <br>
-📌 Table - Browse job listings with advanced filters and search functionality. <br>
-📌 Methodology - Learn about the data collection and processing pipeline.
+📌 Chat - Interact with analytics AI to explore crypto jobs database. <br>
+📌 Methodology - Learn about the data collection and processing pipelines. <br>
+
 
 ## Stacks used
-<b>Data Collection</b>: Selenium, BeautifulSoup <br>
-<b>Data Lake/Warehousing</b>: Supabase <br>
-<b>Data Processing</b>: Python, OpenAI, Scikit-learn <br>
-<b>LLM Chat Integration</b>: Pandas AI <br>
-<b>Data Visualization</b>: Plotly, D3.js <br>
-<b>Backend</b>: Python, Flask <br>
-<b>Frontend</b>: React, JavaScript <br>
-<b>Orchestration</b>: GitHub Actions <br>
+Data Collection: Selenium, BeautifulSoup <br>
+Data Lake & Warehousing: Supabase <br>
+Processing & Modeling: Python, OpenAI, Scikit-learn <br>
+LLM Chat Integration: Pandas AI <br>
+Data Visualization: Plotly, D3.js <br>
+Infrastructure: Flask, React <br>
+Deployment & Orchestration: Render, Vercel, GitHub Actions v
 
 ## Pipeline and Methodology
-1. Data Collection (ETL repo: <a href="https://github.com/ghrjeon/cryptojobs-pipeline" target="_blank" rel="noopener noreferrer">cryptojobs-pipeline</a>)
-   - Define a structured schema for data collection.
-   - Perform web scraping using Selenium and BeautifulSoup.
-   - Store scraped data in Supabase and create APIs for access. 
-3. Data Processing via ML/AI (ETL repo: <a href="https://github.com/ghrjeon/cryptojobs-pipeline" target="_blank" rel="noopener noreferrer">cryptojobs-pipeline</a>)
-   - Clean and preprocess fetched data using Python.
-   - Generate embeddings via OpenAI and apply cosine similarity (Scikit-learn) to remove duplicates.
-   - Infer job functions and locations using OpenAI.
-   - Store processed data in Supabase and create an API for access.
-4. AI Chat Integration
-   - Load processed data into PandasAI for chat-based querying.
-   - Flask backend handles message processing and responses.
-   - React + JavaScript frontend interacts with the backend API.
-5. Data Visualization
-   - Build interactive dashboards and insights using Plotly and D3.js.
 
-## Next steps
-- Add more data sources (e.g., jobstash.xyz)
-- Fine-tune LLM to optimize job function inference
-- Create backup AI service to handle PandasAI outage
+![pipeline](https://github.com/user-attachments/assets/e23add8b-d86a-49e7-bde0-b921d10de4a5)<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2721.914930192192 398.7803503186959" width="5443.829860384384" height="797.5607006373918"><!-- svg-source:excalidraw --><metadata></metadata>
+
+1. Data Collection (ETL repo: <a href="https://github.com/ghrjeon/cryptojobs-pipeline" target="_blank" rel="noopener noreferrer">cryptojobs-pipeline</a>)
+   - Defined data schema for ingestion consistency.
+   - Scraped listings from crypto job boards using Selenium and BeautifulSoup.
+   - Cleaned and processed data using Python and stored raw data in Supabase.  
+3. Data Processing via ML/AI (ETL repo: <a href="https://github.com/ghrjeon/cryptojobs-pipeline" target="_blank" rel="noopener noreferrer">cryptojobs-pipeline</a>)
+   - Generated semantic embeddings with OpenAI.
+   - Applied cosine similarity to identify and eliminate duplicates.  
+   - Assigned job functions and locations via keyword matching and LLM-based inference.  
+   - Integrated fine-tuned LLMs to enhance classification accuracy.  
+   - Stored processed datasets in Supabase and provisioned API for downstream applications.
+4. Data Visualization
+   - Designed dashboards using Plotly and D3.js for interactive visualization with auto-updates.  
+5. AI Chat Integration
+   - Integrated database with PandasAI for natural language analytics.  
+   - Developed Flask backend to manage chat requests and responses.  
+   - Built a React + JavaScript frontend to support interactive, multi-format AI responses.  
+
+## Roadmap
+- Service tool that builds portfolio roadmaps from job descriptions, enabling job seekers to align their work with required skills.
+- Expand to additional data sources (e.g., jobstash.xyz).  
+- Evaluate and refine LLMs models.  
 
 # Directory Structure  
       .
