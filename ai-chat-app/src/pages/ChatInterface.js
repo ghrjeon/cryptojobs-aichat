@@ -8,13 +8,26 @@ import CleanedTable from '../components/CleanedTable';
 import { customStyles } from '../components/customStyle';
 
 const Title = styled.h1`
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #000000;
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
 `;
 
 const TitleContainer = styled.div`
-  padding: 10px;
-  max-width: 800px;
+  padding: 0;
+  margin-bottom: 22px;
+`;
+
+const ChatInterfaceContainer = styled.div`
+  padding: 0;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
@@ -28,18 +41,6 @@ const ChatContainer = styled.div`
   width: 100%;
 `;
 
-const TipContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #ebf1f5;
-`;
 
 const MessagesContainer = styled.div`
   flex: 1;
@@ -110,6 +111,38 @@ const ToggleButton = styled.button`
   
   &:hover {
     background-color: #34495e;
+  }
+`;
+const TipContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  border-radius: 8px;
+  margin: 0 auto;
+`;
+
+const BubbleButtonsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  align-items: center;
+  margin-top: 0;
+`;
+
+const BubbleButton = styled.button`
+  background-color:rgb(253, 229, 229);
+  border: none;
+  border-radius: 18px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #e0e0e0;
   }
 `;
 
@@ -289,7 +322,6 @@ function ChatInterface() {
         dense
         customStyles={customStyles}
         style={{ width: '80vw' }}
-        // Add any additional props you need
       />
     );
   }
@@ -325,7 +357,6 @@ function ChatInterface() {
   // Add an error display component
   const ErrorDisplay = ({ error }) => {
     if (!error) return null;
-
     return (
       <div style={{ 
         padding: '1rem', 
@@ -352,27 +383,42 @@ function ChatInterface() {
     );
   };
 
+  // Add example prompts array
+  const examplePrompts = [
+    "What are the top 5 highest-paying jobs?",
+    "Which country has the most job listings?",
+    "How many postings are there in each job function category?",
+    "Show me a bar chart of average salary by job function - lables should be fully visible."
+  ];
+  
+  // Add this function to handle clicking a bubble button
+  const handlePromptClick = (prompt) => {
+    setInput(prompt);
+  };
+
   return (
-    <>
+    <ChatInterfaceContainer>
       <TitleContainer>
-      <Title>Chat with Crypto Jobs Database</Title>
-      <ToggleButton onClick={() => setShowTable(!showTable)}>
-        {showTable ? 'Hide Data Table' : 'Show Data Table'}
-      </ToggleButton>
+        <Title>Chat with Crypto Jobs Database</Title>
+        <ToggleButton onClick={() => setShowTable(!showTable)}>
+          {showTable ? 'Hide Data Table' : 'Show Data Table'}
+        </ToggleButton>
       </TitleContainer>
       {showTable && (
-        <div>
           <CleanedTable />
-        </div>
       )}
       <TipContainer>
-        Welcome! Try out these prompts!
-        <ul> 
-          <li>What are the top 5 highest-paying jobs?</li>
-          <li>How many postings are there in each job function category?</li>
-          <li>Which country has the most job listings?</li>
-          <li>Show me a bar chart of average salary by job function - lables should be fully visible. </li>
-        </ul>
+        <h2>Try out these prompts!</h2>
+        <BubbleButtonsContainer>
+          {examplePrompts.map((prompt, index) => (
+            <BubbleButton 
+              key={index} 
+              onClick={() => handlePromptClick(prompt)}
+            >
+              {prompt}
+            </BubbleButton>
+          ))}
+        </BubbleButtonsContainer>
       </TipContainer>
       <ChatContainer>
         <MessagesContainer>
@@ -400,7 +446,7 @@ function ChatInterface() {
           {isLoading ? 'Sending...' : 'Send'}
         </SendButton>
       </InputContainer>
-
+      <br></br>
       {/* Add error display */}
       <ErrorDisplay error={error} />
       
@@ -408,7 +454,7 @@ function ChatInterface() {
       {renderResponse()}
     </ChatContainer>
     <div style={{ height: '100px' }}></div>
-    </>
+    </ChatInterfaceContainer>
   );
 }
 

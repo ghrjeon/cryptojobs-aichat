@@ -96,10 +96,9 @@ function CleanedTable() {
 
     return (
         <div style={{ 
-            width: '90%',
+            width: '100%',
             margin: 'auto'
         }}>
-            <br></br>
          {/* First Filter: Job Function */}
           <select 
           value={selectedFunction} 
@@ -149,7 +148,6 @@ function CleanedTable() {
                 />
             </div>
             {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
-            <br></br>
         </div>
     );
 }

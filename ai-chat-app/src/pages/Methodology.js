@@ -1,123 +1,193 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import ReactMarkdown from 'react-markdown';
+import pipeline from '../pages/pipeline.svg';
 
 const HomeContainer = styled.div`
-  padding: 20px;
-  max-width: 900px;
+  padding: 0;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
 const Title = styled.h1`
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #000000;
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
+`;
+
+const SectionTitle = styled.h3`
+  color: #1d1d1f;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
 `;
 
 const Description = styled.div`
-  color: #34495e;
-  line-height: 1.3;
-  font-size: 1.1rem;
+  color: #6e6e73;
+  line-height: 1.6;
+  font-size: 18px;
+  margin-bottom: 32px;
+  
+  h3 {
+    color: #1d1d1f;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 32px 0 16px;
+    letter-spacing: -0.01em;
+  }
 `;
 
 const List = styled.ul`
-  list-style-type: disc;
-  margin-left: 20px;
+  list-style-type: none;
+  margin: 0;
   padding: 0;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  margin-top: 0
+  font-size: 17px;
+  line-height: 1.6;
+  color: #1d1d1f;
+
+  li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+
+    &:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0071e3;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+  }
 `;
 
 const LinksContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 48px 0;
 `;
 
 const LinkCard = styled.a`
   display: flex;
   align-items: center;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background-color: #ffffff;
+  border-radius: 16px;
   text-decoration: none;
-  color: #2c3e50;
-  transition: all 0.2s ease;
-  
+  color: #1d1d1f;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
   &:hover {
-    background-color: #e9ecef;
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 
   code {
-    font-family: monospace;
+    font-family: "SF Mono", SFMono-Regular, ui-monospace, monospace;
+    font-size: 15px;
+    font-weight: 500;
+    color: #0071e3;
+    letter-spacing: -0.01em;
   }
 
   span {
-    margin-left: 8px;
+    margin-left: 12px;
+    font-size: 18px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
   }
+
+  &:hover span {
+    opacity: 1;
+  }
+`;
+
+const MethodologySection = styled.div`
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 `;
 
 const Home = () => {
   return (
     <HomeContainer>
-
       <Title>Methodology</Title>
-      <Description>
-        <ReactMarkdown>
-          {`
-1. Data Collection:
-   - Schema is defined for data collection
-   - Data is scraped from crypto job boards using Selenium and BeautifulSoup
-   - Collected data is stored in Supabase, and APIs are created for access
+      <img style={{width: '100%', height: 'auto', marginTop: '10px', marginBottom: '20px'}} src={pipeline} alt="Methodology" />
 
-2. Data Processing:
-   - Collected data is processed using Python
-   - Embeddings are generated via OpenAI
-   - Duplicate entries are detected and removed using Cosine Similarity (Scikit-learn)
-   - Job functions and Locations are inferred via keyword matching and LLM via OpenAI
-   - Processed data is stored in Supabase, and APIs are created for access
-   - ETL is orchestrated via GitHub Actions
+      <MethodologySection>
+      <ReactMarkdown>
+            {`
+## 1. Data Collection  
+    - Defined data schema for ingestion consistency.
+    - Scraped listings from crypto job boards using Selenium and BeautifulSoup.
+    - Cleaned and processed data using Python and stored raw data in Supabase.  
 
-3. AI Chat Integration:
-   - Processed data is loaded into PandasAI for chat integration
-   - Python Flask backend is built to handle message processing and responses
-   - React + JavaScript chat interface is built to service various AI response formats
+## 2. Data Augmentation   
+    - Generated semantic embeddings with OpenAI.
+    - Applied cosine similarity to identify and eliminate duplicates.  
+    - Assigned job functions and locations via keyword matching and LLM-based inference.  
+    - Integrated fine-tuned LLMs to enhance classification accuracy.  
+    - Stored processed datasets in Supabase and provisioned API for downstream applications.  
 
-4. Data Visualization:
-   - Dashboard is built and data insights are visualized using Plotly and D3.js
+## 4. Data Visualization  
+    - Designed dashboards using Plotly and D3.js for interactive visualization with auto-updates.  
 
-5. Next Steps:
-   - Add more data sources (e.g., jobstash.xyz )
-   - Fine-tune LLM to optimize job function inference
-   - Create backup AI service to handle PandasAI outage
+## 3. AI Chat Integration  
+    - Integrated database with PandasAI for natural language analytics.  
+    - Developed Flask backend to manage chat requests and responses.  
+    - Built a React + JavaScript frontend to support interactive, multi-format AI responses.  
+
+## 5. Roadmap  
+    - Service tool that builds portfolio roadmaps from job descriptions, enabling job seekers to align their work with required skills.
+    - Expand to additional data sources (e.g., jobstash.xyz).  
+    - Evaluate and refine LLMs models.  
           `}
-        </ReactMarkdown>
-      </Description>
-      <Description>
-        <h3>Stacks Used:</h3>
-        <List>
-          <li>Data Collection: Selenium, BeautifulSoup</li>
-          <li>Data Warehousing: Supabase</li>
-          <li>Data Processing: Python, OpenAI, Scikit-learn</li>
-          <li>LLM Chat Integration: Pandas AI</li>
-          <li>Data Visualization: Plotly, D3.js</li>
-          <li>Backend: Python, Flask</li>
-          <li>Frontend: React, JavaScript</li>
-          <li>Deployment: Render, Vercel</li>
-          <li>Orchestration: GitHub Actions</li>
-        </List>
-      </Description>
+          </ReactMarkdown>
+      </MethodologySection>
+      <MethodologySection> 
+      <ReactMarkdown>
+              {`
+## Stacks Used  
+    - Data Collection: Selenium, BeautifulSoup
+    - Data Lake & Warehousing: Supabase
+    - Processing & Modeling: Python, OpenAI, Scikit-learn
+    - LLM Chat Integration: Pandas AI
+    - Data Visualization: Plotly, D3.js
+    - Infrastructure: Flask, React
+    - Deployment & Orchestration: Render, Vercel, GitHub Actions
+          `}
+          </ReactMarkdown>
+
+      </MethodologySection>
       <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 
           target="_blank" 
           rel="noopener noreferrer"
         >
-          <code>Github to this project</code>
+          <code>GitHub to this project</code>
           <span>↗︎</span>
         </LinkCard>
 
@@ -130,7 +200,10 @@ const Home = () => {
           <span>↗︎</span>
         </LinkCard>
       </LinksContainer>
-
+      <ReactMarkdown> 
+      {`
+    Rosalyn Jeon, 2025 `}
+      </ReactMarkdown>
     </HomeContainer>
   );
 };

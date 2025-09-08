@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
+import MapErrorBoundary from './MapErrorBoundary';
 import { createClient } from '@supabase/supabase-js';
 import DataTable from 'react-data-table-component';
 import ReactMarkdown from 'react-markdown';
@@ -102,39 +103,51 @@ function DataMap() {
             showland: true,
             landcolor: 'rgb(243, 243, 243)',
             countrycolor: 'rgb(204, 204, 204)',
+            scrollZoom: false,
         },
+        dragmode: false,
         width: 715,
         height: 400,
         margin: {
             l: 0,
             r: 0,
             b: 0,
-            t: 30,
+            t: 20,
         }
+    };
+
+    const config = {
+        displayModeBar: false,
+        scrollZoom: false,
+        responsive: true,
     };
 
     return (
         <>
-        <h2>Jobs by Location</h2>
-        <div className="card-white" style= {{
-                width: '65%', 
-            }}>          
+       
         <ReactMarkdown>
             {`
-- Dataset contains listings from ${countryData.length} unique countries.
-- ${countryData.find(item => item.location === 'Remote').percentage} of the jobs are Remote. 
-- ${countryData.find(item => item.location === 'United States').percentage} are in the United States, followed by ${countryData.find(item => item.location === 'United Kingdom').percentage} in the United Kingdom and ${countryData.find(item => item.location === 'India').percentage} in India.
-            `}
+## Jobs by Location
+    - Dataset contains listings from ${countryData.length} unique countries.
+    - ${countryData.find(item => item.location === 'Remote').percentage} of the jobs are Remote. 
+    - ${countryData.find(item => item.location === 'United States').percentage} are in the United States, followed by ${countryData.find(item => item.location === 'United Kingdom').percentage} in the United Kingdom and ${countryData.find(item => item.location === 'India').percentage} in India.`}
           </ReactMarkdown>
-        </div>
-        <br></br>
         <div style={{ display: 'flex', flexDirection: 'row',gap: '20px' }}>
             <div style={{ flex: '0 0 715px' }}>
-                <Plot
-                    data={mapData}
-                    layout={layout}
-                    style={{ width: '100%', height: '400px' }}
-                />
+                <MapErrorBoundary>
+                    {countryData.length > 0 ? (
+                        <Plot
+                        data={mapData}
+                        layout={layout}
+                        config={config}
+                        style={{ width: '100%', height: '400px' }}
+                        onError={(err) => console.error('Plotly Error:', err)}
+                        useResizeHandler={true}
+                    />
+                ) : (
+                    <div>Loading map data...</div>
+                    )}
+                </MapErrorBoundary>
             </div>
             <div style={{ flex: 2 }}>
                 <DataTable
