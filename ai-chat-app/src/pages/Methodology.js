@@ -195,7 +195,7 @@ const Home = () => {
           target="_blank" 
           rel="noopener noreferrer"
         >
-          <code>Rosalyn's LinkedIn</code>
+          <code>LinkedIn</code>
           <span>↗︎</span>
         </LinkCard>
       </LinksContainer> */}
