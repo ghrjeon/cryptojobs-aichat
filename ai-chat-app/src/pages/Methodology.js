@@ -178,10 +178,9 @@ const Home = () => {
     - Infrastructure: Flask, React
     - Deployment & Orchestration: Render, Vercel, GitHub Actions
           `}
-          </ReactMarkdown>
-
-      </MethodologySection>
-      <LinksContainer>
+        </ReactMarkdown>
+        </MethodologySection>
+      {/* <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 
           target="_blank" 
@@ -199,7 +198,8 @@ const Home = () => {
           <code>Rosalyn's LinkedIn</code>
           <span>↗︎</span>
         </LinkCard>
-      </LinksContainer>
+      </LinksContainer> */}
+
     </HomeContainer>
   );
 };

@@ -134,9 +134,7 @@ const Home = () => {
     📌 Methodology - Learn about the data collection and processing pipelines.`}
       </ReactMarkdown>
 
-      <br></br>
-      <br></br>
-      <LinksContainer>
+      {/* <LinksContainer>
         <LinkCard 
           href="https://github.com/ghrjeon/cryptojobs-aichat" 
           target="_blank" 
@@ -154,7 +152,16 @@ const Home = () => {
           <code>Rosalyn's LinkedIn</code>
           <span>↗︎</span>
         </LinkCard>
-      </LinksContainer>
+
+        <LinkCard 
+          href="https://dune.com/theano2247" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          <code>Rosalyn's Dune Dashboard</code>
+          <span>↗︎</span>
+        </LinkCard>
+      </LinksContainer> */}
     </HomeContainer>
   );
 };
