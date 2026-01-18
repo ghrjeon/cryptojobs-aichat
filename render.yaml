@@ -7,7 +7,7 @@ services:
     startCommand: cd ai-chat-python/api && gunicorn ai_service:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0
+        value: 3.11.0
       - key: PANDASAI_API_KEY
         sync: false
       - key: REACT_APP_SUPABASE_URL
