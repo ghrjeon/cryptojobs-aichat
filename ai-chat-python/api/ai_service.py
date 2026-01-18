@@ -16,6 +16,7 @@ import re
 import sys
 import webbrowser
 import subprocess
+from pandasai_litellm.litellm import LiteLLM
 
 dotenv.load_dotenv()
 
@@ -91,8 +92,17 @@ df_data = df_data[['title', 'company', 'location', 'job_function', 'salary_amoun
                    'skills', 'source', 'job_url', 'posted_date', 'job_id'
                    ]]
 
-# Set PandasAI API key
-pai.api_key.set(os.getenv("PANDASAI_API_KEY"))
+# # Set PandasAI API key
+# pai.api_key.set(os.getenv("PANDASAI_API_KEY"))
+
+
+# Initialize LiteLLM with your OpenAI model
+llm = LiteLLM(model="gpt-4.1-mini", api_key=os.getenv("OPENAI_API_KEY"))
+
+# Configure PandasAI to use this LLM
+pai.config.set({
+    "llm": llm
+})
 
 # Create PandasAI DataFrame
 job_df = pai.DataFrame(df_data)
