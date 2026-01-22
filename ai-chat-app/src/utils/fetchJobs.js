@@ -6,11 +6,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const fetchJobs = async () => {
     const jobsdata = [];
-    for (let i = 0; i < 5000; i += 1000) {
+    for (let i = 0; i < 10000; i += 1000) {
         const { data: jobsdata_i, error_i } = await supabase
         .from('jobs_clean')
     .select('*')
-    .gte('posted_date', '2025-09-01')  
+    .gte('posted_date', '2025-06-01')  
     .range(i, i+999);                  
     if (error_i) throw error_i;
     
