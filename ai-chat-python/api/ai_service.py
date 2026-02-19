@@ -105,7 +105,7 @@ pai.config.set({
 })
 
 # Create PandasAI DataFrame
-job_df = pai.DataFrame(df_data)
+job_df = pai.DataFrame(df_data, _table_name="jobs")
 
 print(job_df.columns)
 print(job_df.dtypes)
