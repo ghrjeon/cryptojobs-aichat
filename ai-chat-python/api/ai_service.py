@@ -61,7 +61,7 @@ for i in range(0, 5000, 1000):
         supabase_response = (
             supabase.table("jobs_clean")
             .select("*")
-            .gte('ingestion_date', '2025-03-01')
+            .gte('ingestion_date', '2025-08-15')
             .range(i, i+999)
             .execute()
         )
