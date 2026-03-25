@@ -10,7 +10,7 @@ export const fetchJobs = async () => {
         const { data: jobsdata_i, error_i } = await supabase
         .from('jobs_clean')
     .select('*')
-    .gte('posted_date', '2025-08-15')  
+    .gte('posted_date', '2026-01-01')  
     .range(i, i+999);                  
     if (error_i) throw error_i;
     
